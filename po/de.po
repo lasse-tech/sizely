@@ -65,6 +65,14 @@ msgstr ""
 "Zentriert das fokussierte Fenster auf dem Monitor, auf dem es gerade liegt, "
 "ohne die Größe zu verändern."
 
+#: settings-schema.json:presetsPage
+msgid "Custom Sizes"
+msgstr "Eigene Größen"
+
+#: settings-schema.json:presetsSection settings-schema.json:presets
+msgid "Custom sizes"
+msgstr "Eigene Größen"
+
 #: settings-schema.json:standard-family-dci
 msgid "Digital Cinema"
 msgstr "Digital Cinema"
@@ -72,14 +80,6 @@ msgstr "Digital Cinema"
 #: settings-schema.json:standardSection
 msgid "Display"
 msgstr "Anzeige"
-
-#: settings-schema.json:presets-hint
-msgid ""
-"Every row becomes a menu entry. \"Center\" places the window in the middle "
-"of the current monitor after resizing."
-msgstr ""
-"Jede Zeile wird zu einem Menüeintrag. „Zentrieren“ setzt das Fenster nach "
-"dem Anpassen mittig auf den aktuellen Monitor."
 
 #: settings-schema.json:show-in-window-menu
 msgid "Extend the window menu (right-click on the title bar)"
@@ -90,8 +90,8 @@ msgid "General"
 msgstr "Allgemein"
 
 #: settings-schema.json:use-submenu
-msgid "Group presets in a \"Size\" submenu"
-msgstr "Presets in einem Untermenü „Größe“ bündeln"
+msgid "Group custom sizes in a \"Size\" submenu"
+msgstr "Eigene Größen in einem Untermenü „Größe“ bündeln"
 
 #: settings-schema.json:presets
 msgid "Height"
@@ -120,11 +120,9 @@ msgstr "Bezeichnung"
 
 #: settings-schema.json:use-submenu
 msgid ""
-"Off: every preset sits directly in the window menu — one click instead of "
-"two. Handy when you only have a few."
-msgstr ""
-"Aus: Jedes Preset liegt direkt im Fenstermenü – ein Klick statt zwei. "
-"Praktisch, wenn es nur wenige sind."
+"Off: every custom size sits directly in the window menu — one click instead "
+"of two. Handy when you only have a few."
+msgstr "Aus: Jede eigene Größe liegt direkt im Fenstermenü – ein Klick statt zwei. Praktisch, wenn es nur wenige sind."
 
 #: settings-schema.json:standard-fit-only
 msgid "Only list resolutions that fit on the current monitor"
@@ -133,10 +131,6 @@ msgstr "Nur Auflösungen anzeigen, die auf den aktuellen Monitor passen"
 #: settings-schema.json:size-unit
 msgid "Physical pixels"
 msgstr "Physische Pixel"
-
-#: settings-schema.json:presetsPage settings-schema.json:presets
-msgid "Presets"
-msgstr "Presets"
 
 #: settings-schema.json:standard-fit-only
 msgid ""
@@ -163,6 +157,13 @@ msgstr "Untermenü „Standardauflösungen“ anzeigen"
 msgid "Sizes"
 msgstr "Größen"
 
+#: settings-schema.json:presets-hint
+msgid ""
+"Sizes you define yourself. Every row becomes an entry in the window menu. "
+"\"Center\" places the window in the middle of the current monitor after "
+"resizing."
+msgstr "Selbst definierte Größen. Jede Zeile wird zu einem Eintrag im Fenstermenü. „Zentrieren“ setzt das Fenster nach dem Anpassen mittig auf den aktuellen Monitor."
+
 #: extension.js:235
 msgid "Stan_dard Resolutions"
 msgstr "Standardauf_lösungen"
@@ -187,13 +188,15 @@ msgstr "Breite"
 msgid "Window menu"
 msgstr "Fenstermenü"
 
-#: settings-schema.json:presetsSection
-msgid "Your presets"
-msgstr "Eigene Presets"
-
 #: extension.js:199
 msgid "_Size"
 msgstr "Größe _festlegen"
+
+#~ msgid "Presets"
+#~ msgstr "Presets"
+
+#~ msgid "Your presets"
+#~ msgstr "Eigene Presets"
 
 #~ msgid "When off, every preset is shown directly in the window menu."
 #~ msgstr "Aus: Alle Presets erscheinen direkt im Fenstermenü."

@@ -17,7 +17,7 @@
         },
         "presetsPage": {
             "type": "page",
-            "title": "Presets",
+            "title": "Custom Sizes",
             "sections": [
                 "presetsSection"
             ]
@@ -55,7 +55,7 @@
         },
         "presetsSection": {
             "type": "section",
-            "title": "Your presets",
+            "title": "Custom sizes",
             "keys": [
                 "presets-hint",
                 "presets"
@@ -97,8 +97,8 @@
     "use-submenu": {
         "type": "checkbox",
         "default": true,
-        "description": "Group presets in a \"Size\" submenu",
-        "tooltip": "Off: every preset sits directly in the window menu — one click instead of two. Handy when you only have a few."
+        "description": "Group custom sizes in a \"Size\" submenu",
+        "tooltip": "Off: every custom size sits directly in the window menu — one click instead of two. Handy when you only have a few."
     },
     "show-center-item": {
         "type": "checkbox",
@@ -119,11 +119,11 @@
     },
     "presets-hint": {
         "type": "label",
-        "description": "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
+        "description": "Sizes you define yourself. Every row becomes an entry in the window menu. \"Center\" places the window in the middle of the current monitor after resizing."
     },
     "presets": {
         "type": "list",
-        "description": "Presets",
+        "description": "Custom sizes",
         "columns": [
             {
                 "id": "label",

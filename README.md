@@ -7,9 +7,9 @@ on the current monitor — from the title bar context menu or by keyboard shortc
 
 ## Features
 
-* **Your own presets** — any number of them, each with a name, width, height and
-  an optional "center" flag. They appear in the window menu, either grouped in a
-  "Size" submenu or listed directly — with only a couple of presets, listing them
+* **Custom sizes** — any number of them, each with a name, width, height and an
+  optional "center" flag. They appear in the window menu, either grouped in a
+  "Size" submenu or listed directly — with only a couple of them, listing them
   directly saves a click.
 * **Standard resolutions** — a built-in list of common display resolutions,
   grouped by aspect ratio. See below.
@@ -73,7 +73,7 @@ Hence the **unit for all sizes** setting:
 | Logical pixels (default) | The size is multiplied by the UI scaling factor. At factor 2, "1920 × 1080" becomes 3840 × 2160 real pixels and covers the same area a Full HD screen would. |
 | Physical pixels | The value is used as-is, ignoring scaling. |
 
-This applies to your own presets and to the standard resolutions alike. Sizes
+This applies to your custom sizes and to the standard resolutions alike. Sizes
 larger than the monitor's work area are clamped to it, and the fit filter uses
 the scaled size — which is why a 3840 × 2160 monitor at factor 2 lists 16:9 only
 up to 1920 × 1080.
@@ -93,7 +93,7 @@ xlet-settings extension sizely@gossardla
 ```
 
 or through *Settings → Extensions → Sizely → gear icon*. The dialog has three
-tabs — *General*, *Presets* and *Standard Resolutions*. The default shortcut for
+tabs — *General*, *Custom Sizes* and *Standard Resolutions*. The default shortcut for
 centering is <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
 
 The tabs are not just cosmetic: `xlet-settings.py` only switches the settings
