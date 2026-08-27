@@ -35,7 +35,6 @@
             "title": "Window menu",
             "keys": [
                 "show-in-window-menu",
-                "use-submenu",
                 "show-center-item"
             ]
         },
@@ -58,7 +57,8 @@
             "title": "Your presets",
             "keys": [
                 "presets-hint",
-                "presets"
+                "presets",
+                "use-submenu"
             ]
         },
         "standardSection": {
@@ -97,8 +97,8 @@
     "use-submenu": {
         "type": "checkbox",
         "default": true,
-        "description": "Group presets in a \"Size\" submenu",
-        "tooltip": "When off, every preset is shown directly in the window menu."
+        "description": "Group these presets in a \"Size\" submenu",
+        "tooltip": "Off: every preset sits directly in the window menu — one click instead of two. Handy when you only have a few."
     },
     "show-center-item": {
         "type": "checkbox",

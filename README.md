@@ -9,7 +9,8 @@ on the current monitor — from the title bar context menu or by keyboard shortc
 
 * **Your own presets** — any number of them, each with a name, width, height and
   an optional "center" flag. They appear in the window menu, either grouped in a
-  "Size" submenu or listed directly.
+  "Size" submenu or listed directly — with only a couple of presets, listing them
+  directly saves a click.
 * **Standard resolutions** — a built-in list of common display resolutions,
   grouped by aspect ratio. See below.
 * **Center on monitor** — places the window in the middle of the monitor it

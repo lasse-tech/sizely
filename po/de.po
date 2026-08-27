@@ -90,8 +90,8 @@ msgid "General"
 msgstr "Allgemein"
 
 #: settings-schema.json:use-submenu
-msgid "Group presets in a \"Size\" submenu"
-msgstr "Presets in einem Untermenü „Größe“ bündeln"
+msgid "Group these presets in a \"Size\" submenu"
+msgstr "Diese Presets in einem Untermenü „Größe“ bündeln"
 
 #: settings-schema.json:presets
 msgid "Height"
@@ -117,6 +117,12 @@ msgstr ""
 #: settings-schema.json:presets
 msgid "Name"
 msgstr "Bezeichnung"
+
+#: settings-schema.json:use-submenu
+msgid ""
+"Off: every preset sits directly in the window menu — one click instead of "
+"two. Handy when you only have a few."
+msgstr "Aus: Jedes Preset liegt direkt im Fenstermenü – ein Klick statt zwei. Praktisch, wenn es nur wenige sind."
 
 #: settings-schema.json:standard-fit-only
 msgid "Only list resolutions that fit on the current monitor"
@@ -167,10 +173,6 @@ msgstr "Standardauflösungen"
 msgid "Unit for all sizes"
 msgstr "Einheit für alle Größen"
 
-#: settings-schema.json:use-submenu
-msgid "When off, every preset is shown directly in the window menu."
-msgstr "Aus: Alle Presets erscheinen direkt im Fenstermenü."
-
 #: settings-schema.json:show-in-window-menu
 msgid "When off, only the keyboard shortcuts are active."
 msgstr "Aus: Nur die Tastenkombinationen sind aktiv."
@@ -190,6 +192,9 @@ msgstr "Eigene Presets"
 #: extension.js:199
 msgid "_Size"
 msgstr "Größe _festlegen"
+
+#~ msgid "When off, every preset is shown directly in the window menu."
+#~ msgstr "Aus: Alle Presets erscheinen direkt im Fenstermenü."
 
 #~ msgid "Centering"
 #~ msgstr "Zentrieren"
