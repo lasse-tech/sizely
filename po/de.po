@@ -1,0 +1,195 @@
+# Deutsche Übersetzung für Sizely.
+# Mnemonics sind auf das deutsche Cinnamon-Fenstermenü abgestimmt:
+# belegt sind dort bereits n, m, w, v, g, o, s, d, a, c.
+msgid ""
+msgstr ""
+"Project-Id-Version: sizely@gossardla\n"
+"PO-Revision-Date: 2026-08-27 12:00+0200\n"
+"Last-Translator: Lars Gossard <lars@familie-gossard.de>\n"
+"Language-Team: Deutsch\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: settings-schema.json:standard-family-16-10
+msgid "16:10"
+msgstr "16:10"
+
+#: settings-schema.json:standard-family-16-9
+msgid "16:9"
+msgstr "16:9"
+
+#: settings-schema.json:standard-family-21-9
+msgid "21:9"
+msgstr "21:9"
+
+#: settings-schema.json:standard-family-32-9
+msgid "32:9"
+msgstr "32:9"
+
+#: settings-schema.json:standard-family-4-3
+msgid "4:3 / 5:4"
+msgstr "4:3 / 5:4"
+
+#: settings-schema.json:standard-hint
+msgid ""
+"A built-in list of common display resolutions, grouped by aspect ratio. "
+"These are always exact physical pixels, regardless of the unit setting above."
+msgstr "Eine eingebaute Liste gängiger Bildschirmauflösungen, nach Seitenverhältnis gruppiert. Diese Werte sind immer exakte physische Pixel – unabhängig von der Einheit weiter oben."
+
+#: extension.js:262
+msgid "C_enter on Monitor"
+msgstr "Auf Monitor _zentrieren"
+
+#: settings-schema.json:presets
+msgid "Center"
+msgstr "Zentrieren"
+
+#: settings-schema.json:standard-center
+msgid "Center the window after picking a standard resolution"
+msgstr "Fenster nach Wahl einer Standardauflösung zentrieren"
+
+#: settings-schema.json:head-center
+msgid "Centering"
+msgstr "Zentrieren"
+
+#: settings-schema.json:center-keybinding
+msgid ""
+"Centers the focused window on the monitor it currently sits on, without "
+"changing its size."
+msgstr ""
+"Zentriert das fokussierte Fenster auf dem Monitor, auf dem es gerade liegt, "
+"ohne die Größe zu verändern."
+
+#: settings-schema.json:standard-family-dci
+msgid "Digital Cinema"
+msgstr "Digital Cinema"
+
+#: settings-schema.json:presets-hint
+msgid ""
+"Every row becomes a menu entry. \"Center\" places the window in the middle "
+"of the current monitor after resizing."
+msgstr "Jede Zeile wird zu einem Menüeintrag. „Zentrieren“ setzt das Fenster nach dem Anpassen mittig auf den aktuellen Monitor."
+
+#: settings-schema.json:show-in-window-menu
+msgid "Extend the window menu (right-click on the title bar)"
+msgstr "Fenstermenü erweitern (Rechtsklick auf die Titelleiste)"
+
+#: settings-schema.json:head-general
+msgid "General"
+msgstr "Allgemein"
+
+#: settings-schema.json:use-submenu
+msgid "Group presets in a \"Size\" submenu"
+msgstr "Presets in einem Untermenü „Größe“ bündeln"
+
+#: settings-schema.json:presets
+msgid "Height"
+msgstr "Höhe"
+
+#: settings-schema.json:standard-fit-only
+msgid ""
+"Larger resolutions would just be clamped to the monitor's work area, so they "
+"are hidden by default."
+msgstr "Größere Auflösungen würden ohnehin auf den Arbeitsbereich des Monitors begrenzt und sind deshalb standardmäßig ausgeblendet."
+
+#: settings-schema.json:size-unit
+msgid "Logical pixels (HiDPI-scaled)"
+msgstr "Logische Pixel (HiDPI-skaliert)"
+
+#: settings-schema.json:size-unit
+msgid ""
+"Logical: sizes are multiplied by the UI scaling factor, which is what you "
+"visually expect on HiDPI displays. Physical: raw screen pixels. Standard "
+"resolutions are always physical pixels."
+msgstr "Logisch: Die Größen werden mit dem UI-Skalierungsfaktor multipliziert – auf HiDPI-Displays das, was du optisch erwartest. Physisch: rohe Bildschirmpixel. Standardauflösungen sind immer physische Pixel."
+
+#: settings-schema.json:presets
+msgid "Name"
+msgstr "Bezeichnung"
+
+#: settings-schema.json:standard-fit-only
+msgid "Only list resolutions that fit on the current monitor"
+msgstr "Nur Auflösungen anzeigen, die auf den aktuellen Monitor passen"
+
+#: settings-schema.json:size-unit
+msgid "Physical pixels"
+msgstr "Physische Pixel"
+
+#: settings-schema.json:presets
+msgid "Presets"
+msgstr "Presets"
+
+#: settings-schema.json:center-keybinding
+msgid "Shortcut for \"Center on Monitor\""
+msgstr "Tastenkombination für „Auf Monitor zentrieren“"
+
+#: settings-schema.json:preset-1-keybinding
+msgid "Shortcut for preset row 1"
+msgstr "Tastenkombination für Preset-Zeile 1"
+
+#: settings-schema.json:preset-2-keybinding
+msgid "Shortcut for preset row 2"
+msgstr "Tastenkombination für Preset-Zeile 2"
+
+#: settings-schema.json:preset-3-keybinding
+msgid "Shortcut for preset row 3"
+msgstr "Tastenkombination für Preset-Zeile 3"
+
+#: settings-schema.json:preset-4-keybinding
+msgid "Shortcut for preset row 4"
+msgstr "Tastenkombination für Preset-Zeile 4"
+
+#: settings-schema.json:preset-5-keybinding
+msgid "Shortcut for preset row 5"
+msgstr "Tastenkombination für Preset-Zeile 5"
+
+#: settings-schema.json:preset-keys-hint
+msgid ""
+"Shortcuts for the first preset rows, counted from the top of the table above."
+msgstr "Tastenkombinationen für die ersten Preset-Zeilen, von oben gezählt."
+
+#: settings-schema.json:show-center-item
+msgid "Show \"Center on Monitor\" in the window menu"
+msgstr "Eintrag „Auf Monitor zentrieren“ im Fenstermenü anzeigen"
+
+#: settings-schema.json:show-standard-resolutions
+msgid "Show the \"Standard resolutions\" submenu"
+msgstr "Untermenü „Standardauflösungen“ anzeigen"
+
+#: extension.js:285
+msgid "Stan_dard Resolutions"
+msgstr "Standardauf_lösungen"
+
+#: settings-schema.json:head-standard
+msgid "Standard resolutions"
+msgstr "Standardauflösungen"
+
+#: settings-schema.json:size-unit
+msgid "Unit for your own preset sizes"
+msgstr "Einheit der eigenen Preset-Größen"
+
+#: settings-schema.json:use-submenu
+msgid "When off, every preset is shown directly in the window menu."
+msgstr "Aus: Alle Presets erscheinen direkt im Fenstermenü."
+
+#: settings-schema.json:show-in-window-menu
+msgid "When off, only the keyboard shortcuts are active."
+msgstr "Aus: Nur die Tastenkombinationen sind aktiv."
+
+#: settings-schema.json:presets
+msgid "Width"
+msgstr "Breite"
+
+#: settings-schema.json:head-presets
+msgid "Your presets"
+msgstr "Eigene Presets"
+
+#: extension.js:242
+msgid "_Size"
+msgstr "Größe _festlegen"
+
+#~ msgid "Shortcut"
+#~ msgstr "Tastenkombination"

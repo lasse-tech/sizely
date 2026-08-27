@@ -1,0 +1,83 @@
+/*
+ * Gängige Bildschirmauflösungen, gruppiert nach Seitenverhältnis.
+ * Quelle: https://en.wikipedia.org/wiki/Display_resolution_standards
+ *
+ * Diese Werte sind immer PHYSISCHE Pixel – wer "genau 1920 × 1080" wählt, will
+ * ein Fenster mit exakt dieser Pixelzahl, unabhängig von der UI-Skalierung.
+ * Die Einstellung "Einheit der Preset-Größen" gilt deshalb nur für die eigenen
+ * Presets, nicht für diese Liste.
+ */
+
+var FAMILIES = [
+    {
+        id: "16-9",
+        label: "16:9",
+        entries: [
+            [960, 540, "qHD"],
+            [1280, 720, "HD 720p"],
+            [1600, 900, "HD+"],
+            [1920, 1080, "FHD 1080p"],
+            [2560, 1440, "QHD 1440p"],
+            [2880, 1620, "3K"],
+            [3200, 1800, "QHD+"],
+            [3840, 2160, "4K UHD"],
+            [5120, 2880, "5K"],
+            [7680, 4320, "8K UHD"]
+        ]
+    },
+    {
+        id: "16-10",
+        label: "16:10",
+        entries: [
+            [1280, 800, "WXGA"],
+            [1440, 900, "WXGA+"],
+            [1680, 1050, "WSXGA+"],
+            [1920, 1200, "WUXGA"],
+            [2560, 1600, "WQXGA"],
+            [2880, 1800, "WQXGA+"],
+            [3840, 2400, "WQUXGA"]
+        ]
+    },
+    {
+        id: "4-3",
+        label: "4:3 / 5:4",
+        entries: [
+            [800, 600, "SVGA"],
+            [1024, 768, "XGA"],
+            [1152, 864, "XGA+"],
+            [1280, 1024, "SXGA (5:4)"],
+            [1400, 1050, "SXGA+"],
+            [1600, 1200, "UXGA"],
+            [2048, 1536, "QXGA"],
+            [3200, 2400, "QUXGA"]
+        ]
+    },
+    {
+        id: "21-9",
+        label: "21:9",
+        entries: [
+            [2560, 1080, "UWFHD"],
+            [3440, 1440, "UWQHD"],
+            [3840, 1600, "UW4K"],
+            [5120, 2160, "UW5K"]
+        ]
+    },
+    {
+        id: "32-9",
+        label: "32:9",
+        entries: [
+            [5120, 1440, "DQHD"],
+            [7680, 2160, "DUHD"]
+        ]
+    },
+    {
+        id: "dci",
+        label: "Digital Cinema",
+        entries: [
+            [2048, 1080, "DCI 2K"],
+            [4096, 2160, "DCI 4K"]
+        ]
+    }
+];
+
+module.exports = { FAMILIES };

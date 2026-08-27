@@ -1,0 +1,160 @@
+{
+    "head-general": {
+        "type": "header",
+        "description": "General"
+    },
+    "size-unit": {
+        "type": "combobox",
+        "default": "logical",
+        "description": "Unit for your own preset sizes",
+        "tooltip": "Logical: sizes are multiplied by the UI scaling factor, which is what you visually expect on HiDPI displays. Physical: raw screen pixels. Standard resolutions are always physical pixels.",
+        "options": {
+            "Logical pixels (HiDPI-scaled)": "logical",
+            "Physical pixels": "physical"
+        }
+    },
+    "use-submenu": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Group presets in a \"Size\" submenu",
+        "tooltip": "When off, every preset is shown directly in the window menu."
+    },
+    "show-center-item": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Show \"Center on Monitor\" in the window menu"
+    },
+    "show-in-window-menu": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Extend the window menu (right-click on the title bar)",
+        "tooltip": "When off, only the keyboard shortcuts are active."
+    },
+
+    "head-center": {
+        "type": "header",
+        "description": "Centering"
+    },
+    "center-keybinding": {
+        "type": "keybinding",
+        "default": "<Super><Shift>c",
+        "description": "Shortcut for \"Center on Monitor\"",
+        "tooltip": "Centers the focused window on the monitor it currently sits on, without changing its size."
+    },
+
+    "head-presets": {
+        "type": "header",
+        "description": "Your presets"
+    },
+    "presets-hint": {
+        "type": "label",
+        "description": "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
+    },
+    "presets": {
+        "type": "list",
+        "description": "Presets",
+        "columns": [
+            { "id": "label",  "title": "Name",   "type": "string" },
+            { "id": "width",  "title": "Width",  "type": "integer", "default": 1280, "min": 100, "max": 32768, "align": 1.0 },
+            { "id": "height", "title": "Height", "type": "integer", "default": 800,  "min": 100, "max": 32768, "align": 1.0 },
+            { "id": "center", "title": "Center", "type": "boolean", "default": true }
+        ],
+        "default": [
+            { "label": "Small  1280 × 800",  "width": 1280, "height": 800,  "center": true },
+            { "label": "Medium  1600 × 1000","width": 1600, "height": 1000, "center": true },
+            { "label": "Large  1920 × 1200", "width": 1920, "height": 1200, "center": true }
+        ]
+    },
+    "preset-keys-hint": {
+        "type": "label",
+        "description": "Shortcuts for the first preset rows, counted from the top of the table above."
+    },
+    "preset-1-keybinding": {
+        "type": "keybinding",
+        "default": "",
+        "description": "Shortcut for preset row 1"
+    },
+    "preset-2-keybinding": {
+        "type": "keybinding",
+        "default": "",
+        "description": "Shortcut for preset row 2"
+    },
+    "preset-3-keybinding": {
+        "type": "keybinding",
+        "default": "",
+        "description": "Shortcut for preset row 3"
+    },
+    "preset-4-keybinding": {
+        "type": "keybinding",
+        "default": "",
+        "description": "Shortcut for preset row 4"
+    },
+    "preset-5-keybinding": {
+        "type": "keybinding",
+        "default": "",
+        "description": "Shortcut for preset row 5"
+    },
+
+    "head-standard": {
+        "type": "header",
+        "description": "Standard resolutions"
+    },
+    "standard-hint": {
+        "type": "label",
+        "description": "A built-in list of common display resolutions, grouped by aspect ratio. These are always exact physical pixels, regardless of the unit setting above."
+    },
+    "show-standard-resolutions": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Show the \"Standard resolutions\" submenu"
+    },
+    "standard-center": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Center the window after picking a standard resolution",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-fit-only": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Only list resolutions that fit on the current monitor",
+        "tooltip": "Larger resolutions would just be clamped to the monitor's work area, so they are hidden by default.",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-16-9": {
+        "type": "checkbox",
+        "default": true,
+        "description": "16:9",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-16-10": {
+        "type": "checkbox",
+        "default": true,
+        "description": "16:10",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-4-3": {
+        "type": "checkbox",
+        "default": true,
+        "description": "4:3 / 5:4",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-21-9": {
+        "type": "checkbox",
+        "default": true,
+        "description": "21:9",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-32-9": {
+        "type": "checkbox",
+        "default": false,
+        "description": "32:9",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-dci": {
+        "type": "checkbox",
+        "default": false,
+        "description": "Digital Cinema",
+        "dependency": "show-standard-resolutions"
+    }
+}

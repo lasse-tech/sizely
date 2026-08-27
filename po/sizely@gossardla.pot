@@ -1,0 +1,170 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+
+#: settings-schema.json:standard-family-16-10
+msgid "16:10"
+msgstr ""
+
+#: settings-schema.json:standard-family-16-9
+msgid "16:9"
+msgstr ""
+
+#: settings-schema.json:standard-family-21-9
+msgid "21:9"
+msgstr ""
+
+#: settings-schema.json:standard-family-32-9
+msgid "32:9"
+msgstr ""
+
+#: settings-schema.json:standard-family-4-3
+msgid "4:3 / 5:4"
+msgstr ""
+
+#: settings-schema.json:standard-hint
+msgid "A built-in list of common display resolutions, grouped by aspect ratio. These are always exact physical pixels, regardless of the unit setting above."
+msgstr ""
+
+#: extension.js:262
+msgid "C_enter on Monitor"
+msgstr ""
+
+#: settings-schema.json:presets
+msgid "Center"
+msgstr ""
+
+#: settings-schema.json:standard-center
+msgid "Center the window after picking a standard resolution"
+msgstr ""
+
+#: settings-schema.json:head-center
+msgid "Centering"
+msgstr ""
+
+#: settings-schema.json:center-keybinding
+msgid "Centers the focused window on the monitor it currently sits on, without changing its size."
+msgstr ""
+
+#: settings-schema.json:standard-family-dci
+msgid "Digital Cinema"
+msgstr ""
+
+#: settings-schema.json:presets-hint
+msgid "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
+msgstr ""
+
+#: settings-schema.json:show-in-window-menu
+msgid "Extend the window menu (right-click on the title bar)"
+msgstr ""
+
+#: settings-schema.json:head-general
+msgid "General"
+msgstr ""
+
+#: settings-schema.json:use-submenu
+msgid "Group presets in a \"Size\" submenu"
+msgstr ""
+
+#: settings-schema.json:presets
+msgid "Height"
+msgstr ""
+
+#: settings-schema.json:standard-fit-only
+msgid "Larger resolutions would just be clamped to the monitor's work area, so they are hidden by default."
+msgstr ""
+
+#: settings-schema.json:size-unit
+msgid "Logical pixels (HiDPI-scaled)"
+msgstr ""
+
+#: settings-schema.json:size-unit
+msgid "Logical: sizes are multiplied by the UI scaling factor, which is what you visually expect on HiDPI displays. Physical: raw screen pixels. Standard resolutions are always physical pixels."
+msgstr ""
+
+#: settings-schema.json:presets
+msgid "Name"
+msgstr ""
+
+#: settings-schema.json:standard-fit-only
+msgid "Only list resolutions that fit on the current monitor"
+msgstr ""
+
+#: settings-schema.json:size-unit
+msgid "Physical pixels"
+msgstr ""
+
+#: settings-schema.json:presets
+msgid "Presets"
+msgstr ""
+
+#: settings-schema.json:center-keybinding
+msgid "Shortcut for \"Center on Monitor\""
+msgstr ""
+
+#: settings-schema.json:preset-1-keybinding
+msgid "Shortcut for preset row 1"
+msgstr ""
+
+#: settings-schema.json:preset-2-keybinding
+msgid "Shortcut for preset row 2"
+msgstr ""
+
+#: settings-schema.json:preset-3-keybinding
+msgid "Shortcut for preset row 3"
+msgstr ""
+
+#: settings-schema.json:preset-4-keybinding
+msgid "Shortcut for preset row 4"
+msgstr ""
+
+#: settings-schema.json:preset-5-keybinding
+msgid "Shortcut for preset row 5"
+msgstr ""
+
+#: settings-schema.json:preset-keys-hint
+msgid "Shortcuts for the first preset rows, counted from the top of the table above."
+msgstr ""
+
+#: settings-schema.json:show-center-item
+msgid "Show \"Center on Monitor\" in the window menu"
+msgstr ""
+
+#: settings-schema.json:show-standard-resolutions
+msgid "Show the \"Standard resolutions\" submenu"
+msgstr ""
+
+#: extension.js:285
+msgid "Stan_dard Resolutions"
+msgstr ""
+
+#: settings-schema.json:head-standard
+msgid "Standard resolutions"
+msgstr ""
+
+#: settings-schema.json:size-unit
+msgid "Unit for your own preset sizes"
+msgstr ""
+
+#: settings-schema.json:use-submenu
+msgid "When off, every preset is shown directly in the window menu."
+msgstr ""
+
+#: settings-schema.json:show-in-window-menu
+msgid "When off, only the keyboard shortcuts are active."
+msgstr ""
+
+#: settings-schema.json:presets
+msgid "Width"
+msgstr ""
+
+#: settings-schema.json:head-presets
+msgid "Your presets"
+msgstr ""
+
+#: extension.js:242
+msgid "_Size"
+msgstr ""
+
