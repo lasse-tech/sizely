@@ -53,29 +53,27 @@ or hidden individually.
 
 ## HiDPI: logical vs. physical pixels
 
-On X11 Muffin moves and resizes windows in **physical** pixels — monitor scaling
-is not applied for you. Cinnamon supports a **per-monitor** scale factor, so
-`global.ui_scale` is only the global maximum and is the wrong number to compute
-with: on a setup with one monitor at 100 % and one at 150 %, it reports 2 for
-both. Sizely therefore asks
-`global.display.get_monitor_scale()` for the monitor the window actually sits on.
+On X11 Muffin moves and resizes windows in **physical** pixels — the UI scaling
+factor is not applied for you. Sizely reads it from `global.ui_scale` (falling
+back to `St.ThemeContext.scale_factor`).
+
+Do **not** use `Meta.Display.get_monitor_scale()` for this. It returns the
+per-monitor fractional-scaling factor from the display configuration, not the UI
+scaling factor Cinnamon actually renders with. On the test machine it reports
+1.0 and 1.5 for the two monitors while the real UI factor is 2 on both —
+verifiable through the panel, which is configured to 40 px and measures 80 px.
 
 Hence the **unit for all sizes** setting:
 
 | Setting | Meaning |
 |---|---|
-| Logical pixels (default) | The size is multiplied by that monitor's scale factor. "1920 × 1080" then covers the same area a Full HD screen would — on a 150 % monitor that is 2880 × 1620 real pixels. |
-| Physical pixels | The value is used as-is, ignoring monitor scaling. |
+| Logical pixels (default) | The size is multiplied by the UI scaling factor. At factor 2, "1920 × 1080" becomes 3840 × 2160 real pixels and covers the same area a Full HD screen would. |
+| Physical pixels | The value is used as-is, ignoring scaling. |
 
 This applies to your own presets and to the standard resolutions alike. Sizes
-larger than the monitor's work area are clamped to it.
-
-Measured on a two-monitor setup (100 % and 150 %):
-
-| Monitor | Scale | Work area | "1920 × 1080" gives | 16:9 listed up to |
-|---|---|---|---|---|
-| DP-1 | 1.0 | 3840 × 2160 | 1920 × 1080 | 3840 × 2160 |
-| DP-2 | 1.5 | 5120 × 2800 | 2880 × 1620 | 3200 × 1800 |
+larger than the monitor's work area are clamped to it, and the fit filter uses
+the scaled size — which is why a 3840 × 2160 monitor at factor 2 lists 16:9 only
+up to 1920 × 1080.
 
 ## Installation
 

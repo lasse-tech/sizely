@@ -58,11 +58,7 @@ OPEN_MENU = """
 
   let std = menu._getMenuItems().filter(i => i.menu && i.origLabel
       && i.origLabel.indexOf('Resolution') >= 0)[0];
-  if (std) {
-    std.menu.open();
-    let group = std.menu._getMenuItems().filter(g => g.menu)[0];
-    if (group) group.menu.open();
-  }
+  if (std) std.menu.open();
   return 'opened';
 })()
 """

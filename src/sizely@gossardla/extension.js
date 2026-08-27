@@ -1,6 +1,7 @@
 const GLib = imports.gi.GLib;
 const Gettext = imports.gettext;
 const Meta = imports.gi.Meta;
+const St = imports.gi.St;
 const Main = imports.ui.main;
 const Settings = imports.ui.settings;
 const PopupMenu = imports.ui.popupMenu;
@@ -70,15 +71,12 @@ class Sizely {
         this.settings.finalize();
     }
 
-    _monitorScale(window) {
-        const display = global.display;
-        if (typeof display.get_monitor_scale === "function") {
-            const scale = display.get_monitor_scale(window.get_monitor());
-            if (scale > 0) {
-                return scale;
-            }
+    _uiScale() {
+        if (global.ui_scale > 0) {
+            return global.ui_scale;
         }
-        return global.ui_scale || 1;
+        const context = St.ThemeContext.get_for_stage(global.stage);
+        return context && context.scale_factor > 0 ? context.scale_factor : 1;
     }
 
     _scale(value, scale) {
@@ -120,7 +118,7 @@ class Sizely {
 
         const area = window.get_work_area_current_monitor();
         const frame = window.get_frame_rect();
-        const scale = this._useLogical() ? this._monitorScale(window) : 1;
+        const scale = this._useLogical() ? this._uiScale() : 1;
 
         const w = Math.min(this._scale(width, scale), area.width);
         const h = Math.min(this._scale(height, scale), area.height);
@@ -243,9 +241,9 @@ class Sizely {
         }
 
         const area = window.get_work_area_current_monitor();
-        const scale = this._useLogical() ? this._monitorScale(window) : 1;
+        const scale = this._useLogical() ? this._uiScale() : 1;
         const root = new WindowMenu.MnemonicSubMenuMenuItem(_("Stan_dard Resolutions"));
-        let added = 0;
+        let groups = 0;
 
         for (const family of families) {
             const entries = family.entries.filter(([w, h]) => !this.standardFitOnly
@@ -254,19 +252,21 @@ class Sizely {
                 continue;
             }
 
-            const group = new PopupMenu.PopupSubMenuMenuItem(family.label);
-            root.menu.addMenuItem(group);
+            if (groups > 0) {
+                root.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+            }
+
+            const heading = this._addAction(menu, root.menu, undefined, family.label, () => {});
+            heading.setSensitive(false);
 
             for (const [w, h, name] of entries) {
-                const item = new PopupMenu.PopupMenuItem(w + " × " + h + "   " + name);
-                item.connect("activate", () =>
-                    this.resizeWindow(window, w, h, this.standardCenter));
-                group.menu.addMenuItem(item);
+                this._addAction(menu, root.menu, undefined, w + " × " + h + "   " + name,
+                    () => this.resizeWindow(window, w, h, this.standardCenter));
             }
-            added++;
+            groups++;
         }
 
-        if (added === 0) {
+        if (groups === 0) {
             root.destroy();
             return at;
         }

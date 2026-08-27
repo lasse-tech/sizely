@@ -37,9 +37,11 @@ msgstr "4:3 / 5:4"
 msgid ""
 "A built-in list of common display resolutions, grouped by aspect ratio. They "
 "follow the unit setting above."
-msgstr "Eine eingebaute Liste gängiger Bildschirmauflösungen, nach Seitenverhältnis gruppiert. Sie folgen der Einheiten-Einstellung weiter oben."
+msgstr ""
+"Eine eingebaute Liste gängiger Bildschirmauflösungen, nach Seitenverhältnis "
+"gruppiert. Sie folgen der Einheiten-Einstellung weiter oben."
 
-#: extension.js:229
+#: extension.js:227
 msgid "C_enter on Monitor"
 msgstr "Auf Monitor _zentrieren"
 
@@ -92,15 +94,14 @@ msgid "Height"
 msgstr "Höhe"
 
 #: settings-schema.json:size-unit
-msgid "Logical pixels (scaled per monitor)"
-msgstr "Logische Pixel (pro Monitor skaliert)"
+msgid "Logical pixels (HiDPI-scaled)"
+msgstr "Logische Pixel (HiDPI-skaliert)"
 
 #: settings-schema.json:size-unit
 msgid ""
-"Logical: sizes are multiplied by the scale factor of the monitor the window "
-"sits on, so \"1920 x 1080\" covers the same area a Full HD screen would. "
-"Physical: raw screen pixels, ignoring monitor scaling."
-msgstr "Logisch: Die Größen werden mit dem Skalierungsfaktor des Monitors multipliziert, auf dem das Fenster liegt – „1920 x 1080“ bedeckt damit dieselbe Fläche wie ein Full-HD-Bildschirm. Physisch: rohe Bildschirmpixel, ohne Monitor-Skalierung."
+"Logical: sizes are multiplied by the UI scaling factor, so \"1920 x 1080\" "
+"covers the same area a Full HD screen would. Physical: raw screen pixels."
+msgstr "Logisch: Die Größen werden mit dem UI-Skalierungsfaktor multipliziert – „1920 x 1080“ bedeckt damit dieselbe Fläche wie ein Full-HD-Bildschirm. Physisch: rohe Bildschirmpixel."
 
 #: settings-schema.json:presets
 msgid "Name"
@@ -122,7 +123,10 @@ msgstr "Presets"
 msgid ""
 "Resolutions larger than the monitor's work area would just be clamped to it, "
 "so they are hidden by default. The check uses the scaled size."
-msgstr "Auflösungen, die größer als der Arbeitsbereich des Monitors sind, würden ohnehin auf ihn begrenzt und sind deshalb ausgeblendet. Geprüft wird die skalierte Größe."
+msgstr ""
+"Auflösungen, die größer als der Arbeitsbereich des Monitors sind, würden "
+"ohnehin auf ihn begrenzt und sind deshalb ausgeblendet. Geprüft wird die "
+"skalierte Größe."
 
 #: settings-schema.json:center-keybinding
 msgid "Shortcut for \"Center on Monitor\""
@@ -161,7 +165,7 @@ msgstr "Eintrag „Auf Monitor zentrieren“ im Fenstermenü anzeigen"
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr "Untermenü „Standardauflösungen“ anzeigen"
 
-#: extension.js:247
+#: extension.js:245
 msgid "Stan_dard Resolutions"
 msgstr "Standardauf_lösungen"
 
@@ -189,7 +193,7 @@ msgstr "Breite"
 msgid "Your presets"
 msgstr "Eigene Presets"
 
-#: extension.js:211
+#: extension.js:209
 msgid "_Size"
 msgstr "Größe _festlegen"
 

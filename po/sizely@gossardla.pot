@@ -28,7 +28,7 @@ msgstr ""
 msgid "A built-in list of common display resolutions, grouped by aspect ratio. They follow the unit setting above."
 msgstr ""
 
-#: extension.js:229
+#: extension.js:227
 msgid "C_enter on Monitor"
 msgstr ""
 
@@ -73,11 +73,11 @@ msgid "Height"
 msgstr ""
 
 #: settings-schema.json:size-unit
-msgid "Logical pixels (scaled per monitor)"
+msgid "Logical pixels (HiDPI-scaled)"
 msgstr ""
 
 #: settings-schema.json:size-unit
-msgid "Logical: sizes are multiplied by the scale factor of the monitor the window sits on, so \"1920 x 1080\" covers the same area a Full HD screen would. Physical: raw screen pixels, ignoring monitor scaling."
+msgid "Logical: sizes are multiplied by the UI scaling factor, so \"1920 x 1080\" covers the same area a Full HD screen would. Physical: raw screen pixels."
 msgstr ""
 
 #: settings-schema.json:presets
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr ""
 
-#: extension.js:247
+#: extension.js:245
 msgid "Stan_dard Resolutions"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgstr ""
 msgid "Your presets"
 msgstr ""
 
-#: extension.js:211
+#: extension.js:209
 msgid "_Size"
 msgstr ""
 
