@@ -1,3 +1,5 @@
+<img src="assets/png/sizely-icon-128.png" width="96" height="96" alt="Sizely">
+
 # Sizely
 
 A Cinnamon extension that resizes windows to configurable sizes and centers them
@@ -139,6 +141,29 @@ Entries are inserted before the trailing separator so that "Close" stays last.
 
 The centering shortcut goes through `Main.keybindingManager` and is rebound
 whenever the setting changes.
+
+## Icon and assets
+
+The extension icon is `src/sizely@gossardla/icon.png`, rendered by
+`tools/make_icon.py`:
+
+```bash
+make icon                                  # regenerate the 256 px icon
+python3 tools/make_icon.py --set assets/png  # 16/22/24/32/48/64/128/256
+python3 tools/make_icon.py --symbolic out.png
+```
+
+`assets/` holds the source artwork:
+
+| File | Purpose |
+|---|---|
+| `assets/sizely-icon.svg` | colour icon, 256 grid |
+| `assets/sizely-symbolic.svg` | 16 px monochrome, `currentColor` |
+| `assets/sizely-symbolic-24.svg` | 24 px monochrome, `currentColor` |
+| `assets/png/sizely-icon-*.png` | rendered size set |
+
+Palette: mint green `#85C440`, ink `#14260A`, deep green `#1C3410`, symbolic
+`#2B2B2B`.
 
 ## Requirements
 
