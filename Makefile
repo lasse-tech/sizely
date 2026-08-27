@@ -15,7 +15,7 @@ DBUS_SEND   := dbus-send --session --dest=org.Cinnamon --type=method_call /org/C
 
 .PHONY: all help install uninstall reinstall enable disable reload restart \
         logs lint check clean distclean deploy deploy-check spices-package dist status pot install-locale \
-        uninstall-locale i18n-check icon screenshot spice validate
+        uninstall-locale i18n-check icon screenshot spice spice-shot validate
 
 all: help
 
@@ -36,6 +36,7 @@ help:
 	@echo "  make icon        regenerate $(SRCDIR)/icon.png"
 	@echo "  make screenshot  capture screenshot.png from the running menu"
 	@echo "  make spice       build the cinnamon-spices layout in $(SPICEDIR)"
+	@echo "  make spice-shot  rebuild spice/screenshot.png from the two captures"
 	@echo "  make validate    run the official validate-spice against that layout"
 	@echo "  make dist        build a zip archive"
 	@echo "  make deploy      publish web/ to $(WEBURL)"
@@ -121,16 +122,26 @@ icon:
 screenshot:
 	@python3 tools/make_screenshot.py screenshot.png
 
+spice-shot:
+	@test -n "$(MENU)" -a -n "$(SETTINGS)" || { \
+	 echo "usage: make spice-shot MENU=menu.png SETTINGS=settings.png"; exit 1; }
+	@python3 tools/make_spice_screenshot.py $(MENU) $(SETTINGS) spice/screenshot.png
+
+# spice/ holds what the Spices listing shows: a user-facing README and a
+# landscape screenshot. The top-level README is for developers and its image
+# paths do not exist inside the package.
 spice: lint
+	@test -f spice/README.md -a -f spice/screenshot.png || { \
+	 echo "spice/README.md and spice/screenshot.png are required"; exit 1; }
 	@rm -rf $(SPICEDIR)
 	@mkdir -p $(SPICEDIR)/files/$(UUID)/po
 	@cp -a $(SRCDIR)/. $(SPICEDIR)/files/$(UUID)/
 	@cp po/*.po po/*.pot $(SPICEDIR)/files/$(UUID)/po/
 	@cp info.json $(SPICEDIR)/
-	@cp README.md $(SPICEDIR)/
-	@if [ -f screenshot.png ]; then cp screenshot.png $(SPICEDIR)/; \
-	 else echo "WARNING: screenshot.png is missing - run 'make screenshot'"; fi
+	@cp spice/README.md $(SPICEDIR)/
+	@cp spice/screenshot.png $(SPICEDIR)/
 	@find $(SPICEDIR) -name '*.mo' -delete
+	@python3 tools/check_spice.py $(SPICEDIR) $(UUID)
 	@echo "Spice layout built in $(SPICEDIR)"
 
 VALIDATOR   := $(BUILDDIR)/validate-spice

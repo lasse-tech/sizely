@@ -130,6 +130,13 @@ make spice        # build the required layout in build/spice/
 make validate     # run the official validate-spice script against it
 ```
 
+The package ships its own `spice/README.md` and `spice/screenshot.png` rather
+than the ones at the top level: this README is written for developers and its
+image paths do not resolve inside the package, and the Spices listing shows
+landscape tiles. `tools/check_spice.py` runs as part of `make spice` and catches
+exactly that — dead image references, a portrait screenshot, a non-square icon,
+non-ASCII in `metadata.json`, shipped `.mo` files.
+
 `make spice` produces the layout the
 [cinnamon-spices-extensions](https://github.com/linuxmint/cinnamon-spices-extensions)
 repository expects (`UUID/info.json`, `UUID/screenshot.png`,
