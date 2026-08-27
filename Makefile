@@ -14,7 +14,7 @@ JS_SOURCES  := $(wildcard $(SRCDIR)/*.js) $(wildcard tools/*.js)
 DBUS_SEND   := dbus-send --session --dest=org.Cinnamon --type=method_call /org/Cinnamon
 
 .PHONY: all help install uninstall reinstall enable disable reload restart \
-        logs lint check clean distclean deploy deploy-check spices-package dist status pot install-locale \
+        logs lint check clean distclean spices-package dist status pot install-locale \
         uninstall-locale i18n-check icon screenshot spice spice-shot validate
 
 all: help
@@ -39,8 +39,6 @@ help:
 	@echo "  make spice-shot  rebuild spice/screenshot.png from the two captures"
 	@echo "  make validate    run the official validate-spice against that layout"
 	@echo "  make dist        build a zip archive"
-	@echo "  make deploy      publish web/ to $(WEBURL)"
-	@echo "  make deploy-check  check the deployed page and its CSP header"
 	@echo "  make clean       remove build artefacts"
 	@echo "  make distclean   clean + remove stored settings"
 
@@ -162,28 +160,9 @@ dist: lint
 	@zip -qr $(ZIP) po
 	@echo "Archive built: $(ZIP)"
 
-WEBDIR      := web
-WEBHOST     := REDACTED
-WEBPATH     := /REDACTED/sizely
-WEBURL      := https://example.invalid/sizely/
-
-# The landing page is served from the hosting site document root, so it inherits
-# that site's CSP: no inline script, no external fonts. Keep it that way.
-deploy:
-	@test -f $(WEBDIR)/index.html || { echo "$(WEBDIR)/index.html missing"; exit 1; }
-	@grep -q "<script>" $(WEBDIR)/index.html && { \
-	 echo "refusing: inline <script> violates the site CSP (script-src 'self')"; exit 1; } || true
-	@grep -qE '(src\|href)="https?://(fonts\.googleapis\|fonts\.gstatic)' $(WEBDIR)/index.html && { \
-	 echo "refusing: external fonts violate the site CSP (font-src 'self')"; exit 1; } || true
-	@rsync -a --delete --chmod=D755,F644 -e ssh $(WEBDIR)/ $(WEBHOST):$(WEBPATH)/
-	@echo "Deployed to $(WEBHOST):$(WEBPATH)"
-	@printf "%s -> HTTP " "$(WEBURL)"; curl -sS -o /dev/null -w "%{http_code}\n" $(WEBURL)
-
-deploy-check:
-	@printf "%-42s " "$(WEBURL)"; curl -sS -o /dev/null -w "%{http_code}\n" $(WEBURL)
-	@curl -sSI $(WEBURL) | grep -i content-security-policy | sed 's/^/  /'
-
-spices-package: dist
+# The landing page lives outside this repository; its deploy target carried an
+# internal host name and server path, which do not belong in a public repo.
+deploy: dist
 	@echo
 	@echo "For a cinnamon-spices submission run 'make spice' and 'make validate'."
 	@echo "To install on this host run 'make install'."
