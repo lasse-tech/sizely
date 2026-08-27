@@ -46,7 +46,7 @@
     },
     "presets-hint": {
         "type": "label",
-        "description": "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing. The shortcut is optional."
+        "description": "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
     },
     "presets": {
         "type": "list",
@@ -80,11 +80,6 @@
                 "title": "Center",
                 "type": "boolean",
                 "default": false
-            },
-            {
-                "id": "keybinding",
-                "title": "Shortcut",
-                "type": "keybinding"
             }
         ],
         "default": [
@@ -92,22 +87,19 @@
                 "label": "Small  1280 × 800",
                 "width": 1280,
                 "height": 800,
-                "center": false,
-                "keybinding": ""
+                "center": false
             },
             {
                 "label": "Medium  1600 × 1000",
                 "width": 1600,
                 "height": 1000,
-                "center": false,
-                "keybinding": ""
+                "center": false
             },
             {
                 "label": "Large  1920 × 1200",
                 "width": 1920,
                 "height": 1200,
-                "center": false,
-                "keybinding": ""
+                "center": false
             }
         ]
     },

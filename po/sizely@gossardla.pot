@@ -28,7 +28,7 @@ msgstr ""
 msgid "A built-in list of common display resolutions, grouped by aspect ratio. They follow the unit setting above."
 msgstr ""
 
-#: extension.js:221
+#: extension.js:217
 msgid "C_enter on Monitor"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgid "Digital Cinema"
 msgstr ""
 
 #: settings-schema.json:presets-hint
-msgid "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing. The shortcut is optional."
+msgid "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
 msgstr ""
 
 #: settings-schema.json:show-in-window-menu
@@ -100,10 +100,6 @@ msgstr ""
 msgid "Resolutions larger than the monitor's work area would just be clamped to it, so they are hidden by default. The check uses the scaled size."
 msgstr ""
 
-#: settings-schema.json:presets
-msgid "Shortcut"
-msgstr ""
-
 #: settings-schema.json:center-keybinding
 msgid "Shortcut for \"Center on Monitor\""
 msgstr ""
@@ -116,7 +112,7 @@ msgstr ""
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr ""
 
-#: extension.js:239
+#: extension.js:235
 msgid "Stan_dard Resolutions"
 msgstr ""
 
@@ -144,7 +140,7 @@ msgstr ""
 msgid "Your presets"
 msgstr ""
 
-#: extension.js:203
+#: extension.js:199
 msgid "_Size"
 msgstr ""
 

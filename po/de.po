@@ -41,7 +41,7 @@ msgstr ""
 "Eine eingebaute Liste gängiger Bildschirmauflösungen, nach Seitenverhältnis "
 "gruppiert. Sie folgen der Einheiten-Einstellung weiter oben."
 
-#: extension.js:221
+#: extension.js:217
 msgid "C_enter on Monitor"
 msgstr "Auf Monitor _zentrieren"
 
@@ -72,10 +72,10 @@ msgstr "Digital Cinema"
 #: settings-schema.json:presets-hint
 msgid ""
 "Every row becomes a menu entry. \"Center\" places the window in the middle "
-"of the current monitor after resizing. The shortcut is optional."
+"of the current monitor after resizing."
 msgstr ""
 "Jede Zeile wird zu einem Menüeintrag. „Zentrieren“ setzt das Fenster nach dem "
-"Anpassen mittig auf den aktuellen Monitor. Die Tastenkombination ist optional."
+"Anpassen mittig auf den aktuellen Monitor."
 
 #: settings-schema.json:show-in-window-menu
 msgid "Extend the window menu (right-click on the title bar)"
@@ -131,10 +131,6 @@ msgstr ""
 "ohnehin auf ihn begrenzt und sind deshalb ausgeblendet. Geprüft wird die "
 "skalierte Größe."
 
-#: settings-schema.json:presets
-msgid "Shortcut"
-msgstr "Tastenkombination"
-
 #: settings-schema.json:center-keybinding
 msgid "Shortcut for \"Center on Monitor\""
 msgstr "Tastenkombination für „Auf Monitor zentrieren“"
@@ -147,7 +143,7 @@ msgstr "Eintrag „Auf Monitor zentrieren“ im Fenstermenü anzeigen"
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr "Untermenü „Standardauflösungen“ anzeigen"
 
-#: extension.js:239
+#: extension.js:235
 msgid "Stan_dard Resolutions"
 msgstr "Standardauf_lösungen"
 
@@ -175,9 +171,12 @@ msgstr "Breite"
 msgid "Your presets"
 msgstr "Eigene Presets"
 
-#: extension.js:203
+#: extension.js:199
 msgid "_Size"
 msgstr "Größe _festlegen"
+
+#~ msgid "Shortcut"
+#~ msgstr "Tastenkombination"
 
 #~ msgid "Shortcut for preset row 1"
 #~ msgstr "Tastenkombination für Preset-Zeile 1"
