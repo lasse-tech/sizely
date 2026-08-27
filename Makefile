@@ -3,7 +3,8 @@ SRCDIR      := src/$(UUID)
 XLETDIR     := $(HOME)/.local/share/cinnamon/extensions
 DESTDIR     := $(XLETDIR)/$(UUID)
 CONFIGDIR   := $(HOME)/.config/cinnamon/spices/$(UUID)
-LOCALEDIR   := $(HOME)/.local/share/locale
+# Honour XDG_DATA_HOME; falls back to the spec default when it is unset.
+LOCALEDIR   := $(if $(XDG_DATA_HOME),$(XDG_DATA_HOME),$(HOME)/.local/share)/locale
 POTFILE     := po/$(UUID).pot
 POFILES     := $(wildcard po/*.po)
 BUILDDIR    := build

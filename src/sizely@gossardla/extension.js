@@ -14,7 +14,7 @@ const HOTKEY_CENTER = "sizely-center";
 
 let extension = null;
 
-Gettext.bindtextdomain(UUID, GLib.get_home_dir() + "/.local/share/locale");
+Gettext.bindtextdomain(UUID, GLib.get_user_data_dir() + "/locale");
 
 function _(str) {
     const translated = Gettext.dgettext(UUID, str);
