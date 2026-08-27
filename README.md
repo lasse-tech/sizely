@@ -156,6 +156,36 @@ Entries are inserted before the trailing separator so that "Close" stays last.
 The centering shortcut goes through `Main.keybindingManager` and is rebound
 whenever the setting changes.
 
+## Panel applet
+
+Applications with client-side decorations — Thunderbird, most GTK apps — draw
+their own title bar, so there is nothing for Muffin to attach a right-click menu
+to. Two ways around it:
+
+* <kbd>Alt</kbd>+<kbd>Space</kbd> opens Muffin's window menu for any window,
+  decorated or not; Sizely's entries are in there.
+* The **panel applet** (`sizely-applet@gossardla`) offers the same actions for
+  the active window from the panel.
+
+Both are installed by `make install`. The applet has to be added to a panel once
+via *Panel → Add applets*.
+
+It carries its own UUID and therefore its own settings — sizes configured for
+the extension do not carry over. That is deliberate: two xlets sharing a UUID
+would collide in `~/.config/cinnamon/spices/`.
+
+## Shared code
+
+Cinnamon xlets cannot import from each other, so the geometry logic lives once
+in `src/shared/` and `make install` copies it into both:
+
+```
+src/shared/sizing.js       resize, center, scaling, resolution filtering
+src/shared/resolutions.js  the resolution table
+```
+
+Edit those, never the copies inside the xlet directories.
+
 ## Icon and assets
 
 The extension icon is `src/sizely@gossardla/icon.png`, rendered by

@@ -7,7 +7,8 @@ const Settings = imports.ui.settings;
 const PopupMenu = imports.ui.popupMenu;
 const WindowMenu = imports.ui.windowMenu;
 
-const { FAMILIES } = require('./resolutions');
+const Sizing = require('./sizing');
+const FAMILIES = Sizing.FAMILIES;
 
 const UUID = "sizely@gossardla";
 const HOTKEY_CENTER = "sizely-center";
@@ -61,86 +62,8 @@ class Sizely {
         this.settings.finalize();
     }
 
-    _uiScale() {
-        if (global.ui_scale > 0) {
-            return global.ui_scale;
-        }
-        const context = St.ThemeContext.get_for_stage(global.stage);
-        return context && context.scale_factor > 0 ? context.scale_factor : 1;
-    }
-
-    _scale(value, scale) {
-        return Math.max(1, Math.round(value * scale));
-    }
-
     _useLogical() {
         return this.sizeUnit !== "physical";
-    }
-
-    _targetWindow() {
-        return global.display.get_focus_window();
-    }
-
-    _prepare(window) {
-        if (!window || window.get_window_type() === Meta.WindowType.DESKTOP) {
-            return false;
-        }
-        if (window.is_fullscreen()) {
-            return false;
-        }
-        if (window.get_maximized() !== 0) {
-            window.unmaximize(Meta.MaximizeFlags.BOTH);
-        }
-        if (window.tile_type !== undefined && window.tile_type !== Meta.WindowTileType.NONE) {
-            window.unmaximize(Meta.MaximizeFlags.BOTH);
-        }
-        return true;
-    }
-
-    resizeWindow(window, width, height, center) {
-        if (!this._prepare(window)) {
-            return;
-        }
-        if (!window.resizeable) {
-            _log("Window is not resizable: " + window.get_title());
-            return;
-        }
-
-        const area = window.get_work_area_current_monitor();
-        const frame = window.get_frame_rect();
-        const scale = this._useLogical() ? this._uiScale() : 1;
-
-        const w = Math.min(this._scale(width, scale), area.width);
-        const h = Math.min(this._scale(height, scale), area.height);
-
-        let x;
-        let y;
-        if (center) {
-            x = area.x + Math.floor((area.width - w) / 2);
-            y = area.y + Math.floor((area.height - h) / 2);
-        } else {
-            x = Math.max(area.x, Math.min(frame.x, area.x + area.width - w));
-            y = Math.max(area.y, Math.min(frame.y, area.y + area.height - h));
-        }
-
-        window.move_resize_frame(true, x, y, w, h);
-    }
-
-    centerWindow(window) {
-        if (!this._prepare(window)) {
-            return;
-        }
-
-        const area = window.get_work_area_current_monitor();
-        const frame = window.get_frame_rect();
-
-        const w = Math.min(frame.width, area.width);
-        const h = Math.min(frame.height, area.height);
-
-        window.move_resize_frame(true,
-            area.x + Math.floor((area.width - w) / 2),
-            area.y + Math.floor((area.height - h) / 2),
-            w, h);
     }
 
     _patchWindowMenu() {
@@ -201,12 +124,14 @@ class Sizely {
                 menu._items.push(sub);
                 for (const preset of presets) {
                     this._addAction(menu, sub.menu, undefined, this._presetLabel(preset),
-                        () => this.resizeWindow(window, preset.width, preset.height, preset.center));
+                        () => Sizing.resizeWindow(window, preset.width, preset.height,
+                            preset.center, this._useLogical()));
                 }
             } else {
                 for (const preset of presets) {
                     this._addAction(menu, menu, at++, this._presetLabel(preset),
-                        () => this.resizeWindow(window, preset.width, preset.height, preset.center));
+                        () => Sizing.resizeWindow(window, preset.width, preset.height,
+                            preset.center, this._useLogical()));
                 }
             }
         }
@@ -215,7 +140,7 @@ class Sizely {
 
         if (this.showCenterItem) {
             const item = this._addAction(menu, menu, at++, _("C_enter on Monitor"),
-                () => this.centerWindow(window));
+                () => Sizing.centerWindow(window));
             item.setIcon("view-restore-symbolic");
         }
     }
@@ -225,41 +150,26 @@ class Sizely {
             return at;
         }
 
-        const families = FAMILIES.filter(f => this["standardFamily_" + f.id]);
-        if (families.length === 0) {
+        const enabled = FAMILIES.filter(f => this["standardFamily_" + f.id]).map(f => f.id);
+        const groups = Sizing.resolutionGroups(window, enabled, this.standardFitOnly, this._useLogical());
+        if (groups.length === 0) {
             return at;
         }
 
-        const area = window.get_work_area_current_monitor();
-        const scale = this._useLogical() ? this._uiScale() : 1;
         const root = new WindowMenu.MnemonicSubMenuMenuItem(_("Stan_dard Resolutions"));
-        let groups = 0;
 
-        for (const family of families) {
-            const entries = family.entries.filter(([w, h]) => !this.standardFitOnly
-                || (this._scale(w, scale) <= area.width && this._scale(h, scale) <= area.height));
-            if (entries.length === 0) {
-                continue;
-            }
-
-            if (groups > 0) {
+        groups.forEach((group, index) => {
+            if (index > 0) {
                 root.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             }
-
-            const heading = this._addAction(menu, root.menu, undefined, family.label, () => {});
+            const heading = this._addAction(menu, root.menu, undefined, group.label, () => {});
             heading.setSensitive(false);
 
-            for (const [w, h, name] of entries) {
-                this._addAction(menu, root.menu, undefined, w + " × " + h + "   " + name,
-                    () => this.resizeWindow(window, w, h, this.standardCenter));
+            for (const [w, h, name] of group.entries) {
+                this._addAction(menu, root.menu, undefined, Sizing.entryLabel(w, h, name),
+                    () => Sizing.resizeWindow(window, w, h, this.standardCenter, this._useLogical()));
             }
-            groups++;
-        }
-
-        if (groups === 0) {
-            root.destroy();
-            return at;
-        }
+        });
 
         menu.addMenuItem(root, at++);
         menu._items.push(root);
@@ -279,7 +189,7 @@ class Sizely {
             return;
         }
         Main.keybindingManager.addHotKey(HOTKEY_CENTER, this.centerKeybinding,
-            () => this.centerWindow(this._targetWindow()));
+            () => Sizing.centerWindow(Sizing.targetWindow()));
     }
 }
 

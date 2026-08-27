@@ -66,18 +66,19 @@ def scan_schema(path, entries):
 
 
 def main():
-    if len(sys.argv) != 3:
-        sys.exit("Usage: makepot.py <xlet-directory> <output.pot>")
+    if len(sys.argv) < 3:
+        sys.exit("Usage: makepot.py <directory> [<directory> ...] <output.pot>")
 
-    xlet_dir, out_path = sys.argv[1], sys.argv[2]
+    dirs, out_path = sys.argv[1:-1], sys.argv[-1]
     entries = {}
 
-    for filename in sorted(os.listdir(xlet_dir)):
-        full = os.path.join(xlet_dir, filename)
-        if filename.endswith(".js"):
-            scan_js(full, entries)
-        elif filename == "settings-schema.json":
-            scan_schema(full, entries)
+    for xlet_dir in dirs:
+        for filename in sorted(os.listdir(xlet_dir)):
+            full = os.path.join(xlet_dir, filename)
+            if filename.endswith(".js"):
+                scan_js(full, entries)
+            elif filename == "settings-schema.json":
+                scan_schema(full, entries)
 
     with open(out_path, "w", encoding="utf-8") as out:
         out.write(

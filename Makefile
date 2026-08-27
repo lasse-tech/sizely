@@ -1,16 +1,24 @@
 UUID        := sizely@gossardla
+APPLET_UUID := sizely-applet@gossardla
 SRCDIR      := src/$(UUID)
+APPLET_SRC  := src/$(APPLET_UUID)
+SHAREDDIR   := src/shared
 XLETDIR     := $(HOME)/.local/share/cinnamon/extensions
+APPLETDIR   := $(HOME)/.local/share/cinnamon/applets
 DESTDIR     := $(XLETDIR)/$(UUID)
+APPLET_DEST := $(APPLETDIR)/$(APPLET_UUID)
 CONFIGDIR   := $(HOME)/.config/cinnamon/spices/$(UUID)
 # Honour XDG_DATA_HOME; falls back to the spec default when it is unset.
 LOCALEDIR   := $(if $(XDG_DATA_HOME),$(XDG_DATA_HOME),$(HOME)/.local/share)/locale
 POTFILE     := po/$(UUID).pot
 POFILES     := $(wildcard po/*.po)
+APPLET_POT  := po-applet/$(APPLET_UUID).pot
+APPLET_POS  := $(wildcard po-applet/*.po)
 BUILDDIR    := build
 SPICEDIR    := $(BUILDDIR)/spice/$(UUID)
 ZIP         := $(BUILDDIR)/$(UUID).zip
-JS_SOURCES  := $(wildcard $(SRCDIR)/*.js) $(wildcard tools/*.js)
+JS_SOURCES  := $(wildcard $(SRCDIR)/*.js) $(wildcard $(APPLET_SRC)/*.js) \
+               $(wildcard $(SHAREDDIR)/*.js) $(wildcard tools/*.js)
 
 DBUS_SEND   := dbus-send --session --dest=org.Cinnamon --type=method_call /org/Cinnamon
 
@@ -46,40 +54,55 @@ help:
 lint:
 	@command -v cjs >/dev/null || { echo "cjs (Cinnamon JS) not found"; exit 1; }
 	@cjs tools/syntaxcheck.js $(JS_SOURCES)
-	@for po in $(POFILES); do msgfmt --check -o /dev/null $$po && echo "OK      $$po"; done
+	@for po in $(POFILES) $(APPLET_POS); do msgfmt --check -o /dev/null $$po && echo "OK      $$po"; done
 	@python3 -c "import json; json.load(open('$(SRCDIR)/settings-schema.json')); print('OK      $(SRCDIR)/settings-schema.json')"
 	@python3 -c "import json; json.load(open('$(SRCDIR)/metadata.json')); print('OK      $(SRCDIR)/metadata.json')"
+	@python3 -c "import json; json.load(open('$(APPLET_SRC)/settings-schema.json')); print('OK      $(APPLET_SRC)/settings-schema.json')"
+	@python3 -c "import json; json.load(open('$(APPLET_SRC)/metadata.json')); print('OK      $(APPLET_SRC)/metadata.json')"
 
 check: lint
 
 install: lint install-locale
-	@mkdir -p $(XLETDIR)
-	@rm -rf $(DESTDIR)
+	@mkdir -p $(XLETDIR) $(APPLETDIR)
+	@rm -rf $(DESTDIR) $(APPLET_DEST)
 	@cp -a $(SRCDIR) $(DESTDIR)
+	@cp -a $(APPLET_SRC) $(APPLET_DEST)
+	@cp $(SHAREDDIR)/*.js $(DESTDIR)/
+	@cp $(SHAREDDIR)/*.js $(APPLET_DEST)/
 	@echo "Installed to $(DESTDIR)"
+	@echo "Installed to $(APPLET_DEST)"
 	@$(MAKE) --no-print-directory enable
 
 uninstall: disable uninstall-locale
-	@rm -rf $(DESTDIR)
+	@rm -rf $(DESTDIR) $(APPLET_DEST)
 	@echo "Removed: $(DESTDIR)"
+	@echo "Removed: $(APPLET_DEST)"
 
 reinstall: uninstall install
 
 pot:
-	@python3 tools/makepot.py $(SRCDIR) $(POTFILE)
+	@python3 tools/makepot.py $(SRCDIR) $(SHAREDDIR) $(POTFILE)
+	@python3 tools/makepot.py $(APPLET_SRC) $(SHAREDDIR) $(APPLET_POT)
 
 install-locale:
 	@for po in $(POFILES); do \
 		lang=$$(basename $$po .po); \
 		mkdir -p $(LOCALEDIR)/$$lang/LC_MESSAGES; \
 		msgfmt -o $(LOCALEDIR)/$$lang/LC_MESSAGES/$(UUID).mo $$po || exit 1; \
-		echo "Translation installed: $$lang"; \
+		echo "Translation installed: $(UUID) $$lang"; \
+	done
+	@for po in $(APPLET_POS); do \
+		lang=$$(basename $$po .po); \
+		mkdir -p $(LOCALEDIR)/$$lang/LC_MESSAGES; \
+		msgfmt -o $(LOCALEDIR)/$$lang/LC_MESSAGES/$(APPLET_UUID).mo $$po || exit 1; \
+		echo "Translation installed: $(APPLET_UUID) $$lang"; \
 	done
 
 uninstall-locale:
-	@for po in $(POFILES); do \
+	@for po in $(POFILES) $(APPLET_POS); do \
 		lang=$$(basename $$po .po); \
 		rm -f $(LOCALEDIR)/$$lang/LC_MESSAGES/$(UUID).mo; \
+		rm -f $(LOCALEDIR)/$$lang/LC_MESSAGES/$(APPLET_UUID).mo; \
 	done
 	@echo "Translations removed."
 
@@ -87,6 +110,10 @@ i18n-check: pot
 	@for po in $(POFILES); do \
 		printf "%s: " $$po; \
 		msgcmp $$po $(POTFILE) 2>&1 && echo "complete"; \
+	done
+	@for po in $(APPLET_POS); do \
+		printf "%s: " $$po; \
+		msgcmp $$po $(APPLET_POT) 2>&1 && echo "complete"; \
 	done
 
 enable:
@@ -105,7 +132,8 @@ status:
 
 reload:
 	@$(DBUS_SEND) org.Cinnamon.ReloadXlet string:'$(UUID)' string:'EXTENSION' >/dev/null
-	@echo "Extension reloaded."
+	@$(DBUS_SEND) org.Cinnamon.ReloadXlet string:'$(APPLET_UUID)' string:'APPLET' >/dev/null 2>&1 || true
+	@echo "Extension and applet reloaded."
 
 restart:
 	@$(DBUS_SEND) org.Cinnamon.RestartCinnamon boolean:true >/dev/null
@@ -135,6 +163,7 @@ spice: lint
 	@rm -rf $(SPICEDIR)
 	@mkdir -p $(SPICEDIR)/files/$(UUID)/po
 	@cp -a $(SRCDIR)/. $(SPICEDIR)/files/$(UUID)/
+	@cp $(SHAREDDIR)/*.js $(SPICEDIR)/files/$(UUID)/
 	@cp po/*.po po/*.pot $(SPICEDIR)/files/$(UUID)/po/
 	@cp info.json $(SPICEDIR)/
 	@cp spice/README.md $(SPICEDIR)/
