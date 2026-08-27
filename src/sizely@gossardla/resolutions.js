@@ -1,13 +1,3 @@
-/*
- * Gängige Bildschirmauflösungen, gruppiert nach Seitenverhältnis.
- * Quelle: https://en.wikipedia.org/wiki/Display_resolution_standards
- *
- * Diese Werte sind immer PHYSISCHE Pixel – wer "genau 1920 × 1080" wählt, will
- * ein Fenster mit exakt dieser Pixelzahl, unabhängig von der UI-Skalierung.
- * Die Einstellung "Einheit der Preset-Größen" gilt deshalb nur für die eigenen
- * Presets, nicht für diese Liste.
- */
-
 var FAMILIES = [
     {
         id: "16-9",

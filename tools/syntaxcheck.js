@@ -1,13 +1,3 @@
-/*
- * Syntaxcheck für Cinnamon-Xlets.
- *
- * Cinnamon-JS lässt sich nicht einfach ausführen (die Typelibs Meta/Cinnamon
- * gibt es nur im Cinnamon-Prozess). new Function() parst die Datei, ohne sie
- * auszuführen – das prüft die Syntax und lässt die imports in Ruhe.
- *
- * Aufruf: cjs tools/syntaxcheck.js <datei> [<datei> ...]
- */
-
 const GLib = imports.gi.GLib;
 const ByteArray = imports.byteArray;
 const System = imports.system;
@@ -19,11 +9,11 @@ for (const path of ARGV) {
     try {
         const [ok, bytes] = GLib.file_get_contents(path);
         if (!ok) {
-            throw new Error("Datei nicht lesbar");
+            throw new Error("file not readable");
         }
         src = ByteArray.toString(bytes);
     } catch (e) {
-        printerr("FEHLER  " + path + ": " + e.message);
+        printerr("FAIL    " + path + ": " + e.message);
         failed++;
         continue;
     }
@@ -32,7 +22,7 @@ for (const path of ARGV) {
         new Function(src);
         print("OK      " + path);
     } catch (e) {
-        printerr("FEHLER  " + path + ": " + e);
+        printerr("FAIL    " + path + ": " + e);
         failed++;
     }
 }

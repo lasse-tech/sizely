@@ -1,152 +1,156 @@
 # Sizely
 
-Cinnamon-Extension, die Fenster auf konfigurierbare Größen bringt und auf dem
-aktuellen Monitor zentriert – per Rechtsklick auf die Titelleiste oder per
-Tastenkombination.
+A Cinnamon extension that resizes windows to configurable sizes and centers them
+on the current monitor — from the title bar context menu or by keyboard shortcut.
 
-![Fenstermenü](#) <!-- Screenshot bei Bedarf ergänzen -->
+## Features
 
-## Funktion
+* **Your own presets** — any number of them, each with a name, width, height and
+  an optional "center" flag. They appear in the window menu, either grouped in a
+  "Size" submenu or listed directly.
+* **Standard resolutions** — a built-in list of common display resolutions,
+  grouped by aspect ratio. See below.
+* **Center on monitor** — places the window in the middle of the monitor it
+  currently sits on, without changing its size.
+* **Keyboard shortcuts** — for centering and for the first five preset rows.
+* Everything is configurable through the Cinnamon extension settings.
 
-* **Eigene Größen-Presets** – beliebig viele, jeweils mit Name, Breite, Höhe und
-  optionalem „Zentrieren“. Erscheinen im Fenstermenü, wahlweise als Untermenü
-  „Größe festlegen“ oder direkt.
-* **Standardauflösungen** – eine eingebaute Liste gängiger Bildschirmauflösungen
-  (VGA bis 8K), nach Seitenverhältnis gruppiert. Siehe unten.
-* **Auf Monitor zentrieren** – setzt das Fenster mittig auf den Monitor, auf dem
-  es gerade liegt, ohne die Größe zu ändern.
-* **Tastenkombinationen** – für das Zentrieren und für die ersten fünf
-  Preset-Zeilen.
-* Alles über die Cinnamon-Extension-Einstellungen konfigurierbar.
+## Why not wmctrl or xdotool
 
-## Warum keine wmctrl/xdotool-Lösung
+Sizely works purely through the Muffin API (`get_work_area_current_monitor()` and
+`move_resize_frame()`). That makes three things correct:
 
-Sizely rechnet ausschließlich über die Muffin-API
-(`get_work_area_current_monitor()` und `move_resize_frame()`). Damit stimmen
+* the **panel offset** — and only on the monitor the panel actually lives on,
+* the **monitor boundaries** on multi-monitor setups with different resolutions,
+* the **frame geometry**, title bar included.
 
-* der **Panel-Abzug** – und zwar nur auf dem Monitor, auf dem das Panel liegt,
-* die **Monitorgrenzen** bei mehreren Bildschirmen mit unterschiedlichen
-  Auflösungen,
-* die **Frame-Geometrie** inklusive Titelleiste.
+`wmctrl` and `xdotool` compute against the virtual combined screen and know
+nothing about individual monitors — centering would drop a window right on the
+seam between two displays.
 
-`wmctrl` und `xdotool` rechnen dagegen gegen den virtuellen Gesamtscreen und
-kennen die einzelnen Monitore nicht – Zentrieren würde ein Fenster auf der
-Grenze zwischen zwei Bildschirmen absetzen.
+## Standard resolutions
 
-## Standardauflösungen
+The **Standard resolutions** submenu contains the common display standards,
+grouped by aspect ratio:
 
-Das Untermenü **Standardauflösungen** enthält die gängigen Anzeigestandards,
-gruppiert nach Seitenverhältnis:
-
-| Gruppe | Beispiele |
+| Group | Examples |
 |---|---|
 | 16:9 | qHD, HD 720p, HD+, FHD 1080p, QHD 1440p, 3K, QHD+, 4K UHD, 5K, 8K UHD |
 | 16:10 | WXGA, WXGA+, WSXGA+, WUXGA, WQXGA, WQXGA+, WQUXGA |
 | 4:3 / 5:4 | SVGA, XGA, XGA+, SXGA, SXGA+, UXGA, QXGA, QUXGA |
 | 21:9 | UWFHD, UWQHD, UW4K, UW5K |
-| 32:9 | DQHD, DUHD (ab Werk aus) |
-| Digital Cinema | DCI 2K, DCI 4K (ab Werk aus) |
+| 32:9 | DQHD, DUHD (off by default) |
+| Digital Cinema | DCI 2K, DCI 4K (off by default) |
 
-Die Werte stammen aus
+The values are taken from
 [Display resolution standards](https://en.wikipedia.org/wiki/Display_resolution_standards)
-und stehen in `src/sizely@gossardla/resolutions.js`.
+and live in `src/sizely@gossardla/resolutions.js`.
 
-Zwei Punkte dazu:
+Two notes:
 
-* Diese Auflösungen sind **immer exakte physische Pixel**. Wer „1920 × 1080“
-  wählt, will ein Fenster mit genau dieser Pixelzahl – die Einstellung *Einheit
-  der Preset-Größen* gilt deshalb nur für die eigenen Presets.
-* Standardmäßig werden nur Auflösungen gezeigt, die auf den **aktuellen Monitor**
-  passen; größere würden ohnehin nur auf den Arbeitsbereich begrenzt. Auf einem
-  5120 × 2880-Schirm mit Panel fehlt „5K“ also korrekterweise, weil die Workarea
-  nur 2800 px hoch ist. Abschaltbar über *Only list resolutions that fit*.
+* These resolutions are **always exact physical pixels**. Picking "1920 × 1080"
+  should give you a window with exactly that pixel count, so the *unit* setting
+  below applies to your own presets only.
+* By default only resolutions that **fit the current monitor** are listed; larger
+  ones would just be clamped to the work area anyway. On a 5120 × 2880 screen
+  with a panel, "5K" is correctly absent because the work area is only 2800 px
+  tall. This can be turned off.
 
-Jede Gruppe lässt sich einzeln ein- und ausblenden.
+Each group can be shown or hidden individually.
 
-## HiDPI: logische vs. physische Pixel
+## HiDPI: logical vs. physical pixels
 
-Muffin arbeitet unter X11 in **physischen** Pixeln; der UI-Skalierungsfaktor
-(`global.ui_scale`) wird nicht eingerechnet. Auf einem HiDPI-Display mit
-Skalierung 2 wäre ein Preset „1920 × 1200“ optisch nur halb so groß wie
-erwartet.
+On X11 Muffin works in **physical** pixels; the UI scaling factor
+(`global.ui_scale`) is not applied. On a HiDPI display with scaling factor 2, a
+preset of "1920 × 1200" would therefore look half the expected size.
 
-Deshalb gibt es die Einstellung **Einheit der Preset-Größen**:
+Hence the **unit for preset sizes** setting:
 
-| Einstellung | Bedeutung |
+| Setting | Meaning |
 |---|---|
-| Logische Pixel (Standard) | Die Größe wird mit `ui_scale` multipliziert. 1280 × 800 ergibt bei Skalierung 2 also 2560 × 1600 echte Pixel – das, was optisch erwartet wird. |
-| Physische Pixel | Der Wert wird unverändert übernommen. |
+| Logical pixels (default) | The size is multiplied by `ui_scale`. At scaling factor 2, 1280 × 800 becomes 2560 × 1600 real pixels — what you visually expect. |
+| Physical pixels | The value is used as-is. |
 
-Presets, die größer sind als der Arbeitsbereich des Monitors, werden auf dessen
-Größe begrenzt.
+Presets larger than the monitor's work area are clamped to it.
 
 ## Installation
 
 ```bash
-make install     # installiert, übersetzt und aktiviert
-make reload      # nach Codeänderungen im laufenden Cinnamon neu laden
-make uninstall   # deaktiviert und entfernt alles wieder
+make install     # install, compile translations and enable
+make reload      # reload in the running Cinnamon after code changes
+make uninstall   # disable and remove everything again
 ```
 
-Konfiguriert wird über
+Configure it with
 
 ```bash
 xlet-settings extension sizely@gossardla
 ```
 
-oder *Einstellungen → Erweiterungen → Sizely → Zahnrad*. Voreingestellt ist
-<kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> für das Zentrieren; die Presets
-haben ab Werk keine Tastenkombination.
+or through *Settings → Extensions → Sizely → gear icon*. The default shortcut for
+centering is <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>; presets ship without
+a shortcut.
 
-`make help` listet alle Targets.
+Run `make help` for all targets.
 
-## Übersetzungen
+## Translations
 
-Quellsprache ist Englisch, `po/de.po` enthält die deutsche Übersetzung. Die
-Mnemonics (`_` im Menütext) sind so gewählt, dass sie nicht mit den
-Standardeinträgen des Cinnamon-Fenstermenüs kollidieren.
+English is the source language, `po/de.po` holds the German translation. The
+mnemonics (`_` in menu labels) are chosen so they do not collide with the
+standard entries of the Cinnamon window menu.
 
 ```bash
-make pot          # Vorlage po/sizely@gossardla.pot neu erzeugen
-make i18n-check   # Übersetzungen gegen die Vorlage abgleichen
+make pot          # regenerate po/sizely@gossardla.pot
+make i18n-check   # compare translations against the template
 ```
 
-Neue Sprache: `msginit -i po/sizely@gossardla.pot -l xx -o po/xx.po`, übersetzen,
-`make install`. Die Kataloge landen unter
-`~/.local/share/locale/<sprache>/LC_MESSAGES/sizely@gossardla.mo`.
+To add a language: `msginit -i po/sizely@gossardla.pot -l xx -o po/xx.po`,
+translate it, then `make install`. Catalogs are installed to
+`~/.local/share/locale/<lang>/LC_MESSAGES/sizely@gossardla.mo`.
 
-> **Hinweis:** Die Übersetzung greift nur, wenn die Sitzung in der jeweiligen
-> Sprache läuft (`LANG`). Bei `LANG=en_US.UTF-8` erscheinen sowohl Sizely als
-> auch die Cinnamon-Einträge im Fenstermenü auf Englisch.
+> **Note:** A translation only takes effect when the session runs in that
+> language (`LANG`). With `LANG=en_US.UTF-8` both Sizely and the stock Cinnamon
+> entries in the window menu appear in English.
 
-## Technischer Hintergrund
+## Submitting to cinnamon-spices
 
-Die Extension patcht `WindowMenu.prototype._buildMenu` aus
-`/usr/share/cinnamon/js/ui/windowMenu.js`. Cinnamon erzeugt bei jedem Rechtsklick
-eine neue Menü-Instanz (`windowManager.js:399`), der Patch greift also sofort und
-ohne Neustart. Systemdateien werden nicht verändert; `disable()` stellt den
-Originalzustand wieder her.
+```bash
+make screenshot   # capture screenshot.png from the running window menu
+make spice        # build the required layout in build/spice/
+make validate     # run the official validate-spice script against it
+```
 
-Die Einträge werden vor dem abschließenden Separator eingehängt, damit
-„Schließen“ der letzte Eintrag bleibt.
+`make spice` produces the layout the
+[cinnamon-spices-extensions](https://github.com/linuxmint/cinnamon-spices-extensions)
+repository expects (`UUID/info.json`, `UUID/screenshot.png`,
+`UUID/files/UUID/...` with `po/` inside). Copy `build/spice/sizely@gossardla`
+into a fork of that repository and open a pull request.
 
-Tastenkombinationen laufen über `Main.keybindingManager` und werden bei jeder
-Einstellungsänderung neu gebunden.
+## How it works
 
-Die Preset-Hotkeys liegen als eigene Einstellungen (`preset-1-keybinding` …
-`preset-5-keybinding`) neben der Tabelle, nicht als Spalte darin. Grund ist ein
-Fehler in Cinnamon: `TreeListWidgets.list_edit_factory()` erzeugt das Widget für
-eine `keybinding`-Spalte ohne Settings-Backend, worauf dessen Konstruktor in
-`SettingsWidgets.py:482` über `self.backend` stolpert – der Bearbeiten-Dialog der
-Liste stürzt dann mit `AttributeError: 'Widget' object has no attribute
-'backend'` ab. Das betrifft jedes Xlet, auch Cinnamons eigenes
-`settings-example@cinnamon.org`.
+The extension patches `WindowMenu.prototype._buildMenu` from
+`/usr/share/cinnamon/js/ui/windowMenu.js`. Cinnamon builds a fresh menu instance
+on every right-click (`windowManager.js:399`), so the patch takes effect
+immediately and without a restart. No system files are modified, and `disable()`
+restores the original.
 
-## Voraussetzungen
+Entries are inserted before the trailing separator so that "Close" stays last.
 
-Cinnamon 6.0 – 6.6 unter X11. Getestet auf Linux Mint 22.3 „Zena“ mit
-Cinnamon 6.6.9.
+Keyboard shortcuts go through `Main.keybindingManager` and are rebound whenever
+the settings change.
 
-## Lizenz
+The preset shortcuts are separate settings (`preset-1-keybinding` …
+`preset-5-keybinding`) rather than a column inside the table. The reason is a bug
+in Cinnamon: `TreeListWidgets.list_edit_factory()` builds the widget for a
+`keybinding` column without a settings backend, so its constructor trips over
+`self.backend` in `SettingsWidgets.py:482` and the list's edit dialog crashes
+with `AttributeError: 'Widget' object has no attribute 'backend'`. This affects
+every xlet, including Cinnamon's own `settings-example@cinnamon.org`.
 
-MIT – siehe [LICENSE](LICENSE).
+## Requirements
+
+Cinnamon 6.0 – 6.6 on X11. Tested on Linux Mint 22.3 "Zena" with Cinnamon 6.6.9.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

@@ -1,7 +1,7 @@
 {
     "uuid": "sizely@gossardla",
     "name": "Sizely",
-    "description": "Bringt Fenster per Titelleisten-Kontextmenü oder Hotkey auf konfigurierbare Größen und zentriert sie auf dem aktuellen Monitor.",
+    "description": "Resize windows to configurable sizes and center them on the current monitor, from the title bar menu or by keyboard shortcut.",
     "version": "1.0.0",
     "author": "Lars Gossard",
     "cinnamon-version": [
@@ -11,5 +11,5 @@
         "6.6"
     ],
     "max-instances": 1,
-    "url": "https://github.com/lgossard/sizely"
+    "url": "https://github.com/lasse-tech/sizely"
 }

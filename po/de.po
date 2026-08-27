@@ -1,6 +1,6 @@
-# Deutsche Übersetzung für Sizely.
-# Mnemonics sind auf das deutsche Cinnamon-Fenstermenü abgestimmt:
-# belegt sind dort bereits n, m, w, v, g, o, s, d, a, c.
+# German translation for Sizely.
+# Mnemonics are aligned with the German Cinnamon window menu:
+# n, m, w, v, g, o, s, d, a, c are already taken there.
 msgid ""
 msgstr ""
 "Project-Id-Version: sizely@gossardla\n"

@@ -1,16 +1,3 @@
-/*
- * Sizely – Cinnamon-Extension
- *
- * Erweitert das Fenstermenü (Rechtsklick auf die Titelleiste) um konfigurierbare
- * Größen-Presets und einen Eintrag zum Zentrieren auf dem aktuellen Monitor.
- * Dieselben Aktionen sind zusätzlich über frei belegbare Tastenkombinationen
- * erreichbar.
- *
- * Gerechnet wird ausschließlich über die Muffin-API (get_work_area_current_monitor /
- * move_resize_frame). Damit stimmen Panel-Abzug und Monitorgrenzen auch bei
- * Multi-Monitor-Setups mit unterschiedlichen Auflösungen.
- */
-
 const GLib = imports.gi.GLib;
 const Gettext = imports.gettext;
 const Meta = imports.gi.Meta;
@@ -24,20 +11,10 @@ const { FAMILIES } = require('./resolutions');
 const UUID = "sizely@gossardla";
 const HOTKEY_CENTER = "sizely-center";
 const HOTKEY_PRESET_PREFIX = "sizely-preset-";
-
-/* Anzahl der Tastenkombinations-Slots im Einstellungsdialog. Der Spaltentyp
- * "keybinding" einer list-Einstellung ist in Cinnamon defekt
- * (TreeListWidgets.list_edit_factory erzeugt das Keybinding-Widget ohne
- * Settings-Backend, wodurch dessen Konstruktor auf self.backend läuft), deshalb
- * liegen die Preset-Hotkeys als eigene Einstellungen daneben. */
 const PRESET_HOTKEY_SLOTS = 5;
 
 let extension = null;
 
-/* Eigene Übersetzungsdomain. Für Extensions bindet Cinnamon die Domain nicht
- * selbst (nur für Applets, appletManager.js:617) – das macht die Extension hier.
- * Das globale _() zeigt auf die cinnamon-Domain und würde unsere Strings nicht
- * finden. */
 Gettext.bindtextdomain(UUID, GLib.get_home_dir() + "/.local/share/locale");
 
 function _(str) {
@@ -53,14 +30,14 @@ function _logError(message, error) {
     global.logError("[" + UUID + "] " + message + ": " + error);
 }
 
-class WindowResizer {
+class Sizely {
     constructor(uuid) {
         this.uuid = uuid;
         this._origBuildMenu = null;
         this._presetHotkeyCount = 0;
 
         this.settings = new Settings.ExtensionSettings(this, uuid);
-        this.settings.bind("presets", "presets", () => this._onPresetsChanged());
+        this.settings.bind("presets", "presets", () => this._bindPresetHotkeys());
         this.settings.bind("center-keybinding", "centerKeybinding", () => this._bindCenterHotkey());
         this.settings.bind("size-unit", "sizeUnit");
         this.settings.bind("use-submenu", "useSubmenu");
@@ -93,13 +70,6 @@ class WindowResizer {
         this.settings.finalize();
     }
 
-    // ------------------------------------------------------------------
-    // Geometrie
-    // ------------------------------------------------------------------
-
-    /* Presets sind in logischen oder physischen Pixeln angegeben. Muffin rechnet
-     * unter X11 in physischen Pixeln, deshalb wird im logischen Modus mit dem
-     * UI-Skalierungsfaktor multipliziert. */
     _scale(value, useLogical) {
         if (!useLogical) {
             return value;
@@ -127,9 +97,6 @@ class WindowResizer {
         return true;
     }
 
-    /* Setzt die Fenstergröße und hält die Position, klemmt sie aber in die
-     * Workarea des Monitors, auf dem das Fenster liegt. Mit center=true wird das
-     * Fenster stattdessen in einem einzigen Aufruf mittig gesetzt. */
     resizeWindow(window, width, height, center, useLogical) {
         if (!this._prepare(window)) {
             return;
@@ -158,8 +125,6 @@ class WindowResizer {
         window.move_resize_frame(true, x, y, w, h);
     }
 
-    /* Zentriert das Fenster auf dem Monitor, auf dem es gerade liegt, ohne die
-     * Größe zu verändern. */
     centerWindow(window) {
         if (!this._prepare(window)) {
             return;
@@ -177,10 +142,6 @@ class WindowResizer {
             w, h);
     }
 
-    // ------------------------------------------------------------------
-    // Fenstermenü
-    // ------------------------------------------------------------------
-
     _patchWindowMenu() {
         if (this._origBuildMenu) {
             return;
@@ -194,8 +155,7 @@ class WindowResizer {
             try {
                 self._injectItems(this, window);
             } catch (e) {
-                // Ein Fehler hier darf niemals das Fenstermenü unbrauchbar machen.
-                _logError("Fenstermenü konnte nicht erweitert werden", e);
+                _logError("Failed to extend the window menu", e);
             }
         };
     }
@@ -208,8 +168,6 @@ class WindowResizer {
         this._origBuildMenu = null;
     }
 
-    /* Wie WindowMenu.addAction(), aber mit Positionsangabe – das Original hängt
-     * Einträge immer ans Ende an. */
     _addAction(menu, target, position, title, callback) {
         const item = new WindowMenu.MnemonicLeftOrnamentedMenuItem(title);
         target.addMenuItem(item, position);
@@ -231,8 +189,6 @@ class WindowResizer {
             return;
         }
 
-        /* Das Originalmenü endet immer mit Separator + "Schließen". Davor wird
-         * eingehängt, damit "Schließen" der letzte Eintrag bleibt. */
         let at = Math.max(0, menu._getMenuItems().length - 2);
 
         menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem(), at++);
@@ -265,9 +221,6 @@ class WindowResizer {
         }
     }
 
-    /* Untermenü mit den gängigen Bildschirmauflösungen, nach Seitenverhältnis
-     * gruppiert. Diese Werte sind immer physische Pixel – wer "1920 × 1080"
-     * wählt, will exakt diese Pixelzahl. */
     _injectStandardResolutions(menu, window, at) {
         if (!this.showStandardResolutions) {
             return at;
@@ -278,10 +231,7 @@ class WindowResizer {
             return at;
         }
 
-        /* Die Workarea wird einmal pro Menüaufbau bestimmt – das Fenster kann
-         * den Monitor nicht wechseln, während sein Menü offen ist. */
         const area = window.get_work_area_current_monitor();
-
         const root = new WindowMenu.MnemonicSubMenuMenuItem(_("Stan_dard Resolutions"));
         let added = 0;
 
@@ -296,8 +246,7 @@ class WindowResizer {
             root.menu.addMenuItem(group);
 
             for (const [w, h, name] of entries) {
-                const label = w + " × " + h + "   " + name;
-                const item = new PopupMenu.PopupMenuItem(label);
+                const item = new PopupMenu.PopupMenuItem(w + " × " + h + "   " + name);
                 item.connect("activate", () =>
                     this.resizeWindow(window, w, h, this.standardCenter, false));
                 group.menu.addMenuItem(item);
@@ -322,10 +271,6 @@ class WindowResizer {
         return preset.width + " × " + preset.height;
     }
 
-    // ------------------------------------------------------------------
-    // Tastenkombinationen
-    // ------------------------------------------------------------------
-
     _bindCenterHotkey() {
         Main.keybindingManager.removeHotKey(HOTKEY_CENTER);
         if (!this.centerKeybinding || this.centerKeybinding === "::") {
@@ -347,7 +292,6 @@ class WindowResizer {
             }
             const preset = presets[slot - 1];
             if (!preset) {
-                // Slot belegt, aber es gibt keine so hohe Zeile in der Tabelle.
                 continue;
             }
             Main.keybindingManager.addHotKey(HOTKEY_PRESET_PREFIX + slot, binding,
@@ -363,14 +307,10 @@ class WindowResizer {
         }
         this._presetHotkeyCount = 0;
     }
-
-    _onPresetsChanged() {
-        this._bindPresetHotkeys();
-    }
 }
 
 function init(metadata) {
-    extension = new WindowResizer(metadata.uuid);
+    extension = new Sizely(metadata.uuid);
 }
 
 function enable() {

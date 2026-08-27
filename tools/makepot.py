@@ -1,14 +1,4 @@
 #!/usr/bin/env python3
-"""Erzeugt eine .pot-Datei für ein Cinnamon-Xlet.
-
-Ersetzt cinnamon-json-makepot, das python3-polib voraussetzt. Extrahiert
-    * _("...") und _('...') aus den JavaScript-Quellen
-    * die übersetzbaren Felder aus settings-schema.json
-      (description, tooltip, units, title in list-columns, sowie die
-      Anzeigetexte von combobox/radiogroup-Optionen)
-
-Aufruf: tools/makepot.py <xlet-verzeichnis> <ausgabe.pot>
-"""
 
 import json
 import os
@@ -17,7 +7,6 @@ import sys
 
 JS_STRING = re.compile(r"""_\(\s*(?P<q>["'])(?P<text>(?:\\.|(?!(?P=q)).)*)(?P=q)\s*\)""")
 
-# Felder eines Schema-Eintrags, deren Wert im UI sichtbar ist
 SCHEMA_FIELDS = ("description", "tooltip", "units")
 
 
@@ -55,7 +44,6 @@ def scan_schema(path, entries):
         for field in SCHEMA_FIELDS:
             add(entries, item.get(field), "%s:%s" % (name, key))
 
-        # combobox/radiogroup: die Schlüssel sind die sichtbaren Texte
         options = item.get("options")
         if isinstance(options, dict):
             for label in options:
@@ -68,7 +56,7 @@ def scan_schema(path, entries):
 
 def main():
     if len(sys.argv) != 3:
-        sys.exit("Aufruf: makepot.py <xlet-verzeichnis> <ausgabe.pot>")
+        sys.exit("Usage: makepot.py <xlet-directory> <output.pot>")
 
     xlet_dir, out_path = sys.argv[1], sys.argv[2]
     entries = {}
@@ -95,7 +83,7 @@ def main():
             out.write('msgid "%s"\n' % escape_po(text))
             out.write('msgstr ""\n\n')
 
-    print("%s: %d Strings" % (out_path, len(entries)))
+    print("%s: %d strings" % (out_path, len(entries)))
 
 
 if __name__ == "__main__":
