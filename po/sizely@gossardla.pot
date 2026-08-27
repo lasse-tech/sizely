@@ -69,7 +69,7 @@ msgid "General"
 msgstr ""
 
 #: settings-schema.json:use-submenu
-msgid "Group these presets in a \"Size\" submenu"
+msgid "Group presets in a \"Size\" submenu"
 msgstr ""
 
 #: settings-schema.json:presets

@@ -90,8 +90,8 @@ msgid "General"
 msgstr "Allgemein"
 
 #: settings-schema.json:use-submenu
-msgid "Group these presets in a \"Size\" submenu"
-msgstr "Diese Presets in einem Untermenü „Größe“ bündeln"
+msgid "Group presets in a \"Size\" submenu"
+msgstr "Presets in einem Untermenü „Größe“ bündeln"
 
 #: settings-schema.json:presets
 msgid "Height"
@@ -122,7 +122,9 @@ msgstr "Bezeichnung"
 msgid ""
 "Off: every preset sits directly in the window menu — one click instead of "
 "two. Handy when you only have a few."
-msgstr "Aus: Jedes Preset liegt direkt im Fenstermenü – ein Klick statt zwei. Praktisch, wenn es nur wenige sind."
+msgstr ""
+"Aus: Jedes Preset liegt direkt im Fenstermenü – ein Klick statt zwei. "
+"Praktisch, wenn es nur wenige sind."
 
 #: settings-schema.json:standard-fit-only
 msgid "Only list resolutions that fit on the current monitor"
