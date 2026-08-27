@@ -46,7 +46,7 @@
     },
     "presets-hint": {
         "type": "label",
-        "description": "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
+        "description": "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing. The shortcut is optional."
     },
     "presets": {
         "type": "list",
@@ -79,7 +79,12 @@
                 "id": "center",
                 "title": "Center",
                 "type": "boolean",
-                "default": true
+                "default": false
+            },
+            {
+                "id": "keybinding",
+                "title": "Shortcut",
+                "type": "keybinding"
             }
         ],
         "default": [
@@ -87,50 +92,24 @@
                 "label": "Small  1280 × 800",
                 "width": 1280,
                 "height": 800,
-                "center": true
+                "center": false,
+                "keybinding": ""
             },
             {
                 "label": "Medium  1600 × 1000",
                 "width": 1600,
                 "height": 1000,
-                "center": true
+                "center": false,
+                "keybinding": ""
             },
             {
                 "label": "Large  1920 × 1200",
                 "width": 1920,
                 "height": 1200,
-                "center": true
+                "center": false,
+                "keybinding": ""
             }
         ]
-    },
-    "preset-keys-hint": {
-        "type": "label",
-        "description": "Shortcuts for the first preset rows, counted from the top of the table above."
-    },
-    "preset-1-keybinding": {
-        "type": "keybinding",
-        "default": "",
-        "description": "Shortcut for preset row 1"
-    },
-    "preset-2-keybinding": {
-        "type": "keybinding",
-        "default": "",
-        "description": "Shortcut for preset row 2"
-    },
-    "preset-3-keybinding": {
-        "type": "keybinding",
-        "default": "",
-        "description": "Shortcut for preset row 3"
-    },
-    "preset-4-keybinding": {
-        "type": "keybinding",
-        "default": "",
-        "description": "Shortcut for preset row 4"
-    },
-    "preset-5-keybinding": {
-        "type": "keybinding",
-        "default": "",
-        "description": "Shortcut for preset row 5"
     },
     "head-standard": {
         "type": "header",
@@ -147,7 +126,7 @@
     },
     "standard-center": {
         "type": "checkbox",
-        "default": true,
+        "default": false,
         "description": "Center the window after picking a standard resolution",
         "dependency": "show-standard-resolutions"
     },
@@ -172,13 +151,13 @@
     },
     "standard-family-4-3": {
         "type": "checkbox",
-        "default": true,
+        "default": false,
         "description": "4:3 / 5:4",
         "dependency": "show-standard-resolutions"
     },
     "standard-family-21-9": {
         "type": "checkbox",
-        "default": true,
+        "default": false,
         "description": "21:9",
         "dependency": "show-standard-resolutions"
     },

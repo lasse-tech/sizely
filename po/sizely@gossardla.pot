@@ -28,7 +28,7 @@ msgstr ""
 msgid "A built-in list of common display resolutions, grouped by aspect ratio. They follow the unit setting above."
 msgstr ""
 
-#: extension.js:227
+#: extension.js:221
 msgid "C_enter on Monitor"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgid "Digital Cinema"
 msgstr ""
 
 #: settings-schema.json:presets-hint
-msgid "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing."
+msgid "Every row becomes a menu entry. \"Center\" places the window in the middle of the current monitor after resizing. The shortcut is optional."
 msgstr ""
 
 #: settings-schema.json:show-in-window-menu
@@ -100,32 +100,12 @@ msgstr ""
 msgid "Resolutions larger than the monitor's work area would just be clamped to it, so they are hidden by default. The check uses the scaled size."
 msgstr ""
 
+#: settings-schema.json:presets
+msgid "Shortcut"
+msgstr ""
+
 #: settings-schema.json:center-keybinding
 msgid "Shortcut for \"Center on Monitor\""
-msgstr ""
-
-#: settings-schema.json:preset-1-keybinding
-msgid "Shortcut for preset row 1"
-msgstr ""
-
-#: settings-schema.json:preset-2-keybinding
-msgid "Shortcut for preset row 2"
-msgstr ""
-
-#: settings-schema.json:preset-3-keybinding
-msgid "Shortcut for preset row 3"
-msgstr ""
-
-#: settings-schema.json:preset-4-keybinding
-msgid "Shortcut for preset row 4"
-msgstr ""
-
-#: settings-schema.json:preset-5-keybinding
-msgid "Shortcut for preset row 5"
-msgstr ""
-
-#: settings-schema.json:preset-keys-hint
-msgid "Shortcuts for the first preset rows, counted from the top of the table above."
 msgstr ""
 
 #: settings-schema.json:show-center-item
@@ -136,7 +116,7 @@ msgstr ""
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr ""
 
-#: extension.js:245
+#: extension.js:239
 msgid "Stan_dard Resolutions"
 msgstr ""
 
@@ -164,7 +144,7 @@ msgstr ""
 msgid "Your presets"
 msgstr ""
 
-#: extension.js:209
+#: extension.js:203
 msgid "_Size"
 msgstr ""
 

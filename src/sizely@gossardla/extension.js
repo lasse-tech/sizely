@@ -12,7 +12,6 @@ const { FAMILIES } = require('./resolutions');
 const UUID = "sizely@gossardla";
 const HOTKEY_CENTER = "sizely-center";
 const HOTKEY_PRESET_PREFIX = "sizely-preset-";
-const PRESET_HOTKEY_SLOTS = 5;
 
 let extension = null;
 
@@ -44,11 +43,6 @@ class Sizely {
         this.settings.bind("use-submenu", "useSubmenu");
         this.settings.bind("show-center-item", "showCenterItem");
         this.settings.bind("show-in-window-menu", "showInWindowMenu");
-
-        for (let slot = 1; slot <= PRESET_HOTKEY_SLOTS; slot++) {
-            this.settings.bind("preset-" + slot + "-keybinding",
-                "presetKeybinding" + slot, () => this._bindPresetHotkeys());
-        }
 
         this.settings.bind("show-standard-resolutions", "showStandardResolutions");
         this.settings.bind("standard-center", "standardCenter");
@@ -297,25 +291,20 @@ class Sizely {
 
         const presets = Array.isArray(this.presets) ? this.presets : [];
 
-        for (let slot = 1; slot <= PRESET_HOTKEY_SLOTS; slot++) {
-            const binding = this["presetKeybinding" + slot];
-            if (!binding || binding === "::") {
-                continue;
+        presets.forEach((preset, index) => {
+            if (!preset.keybinding || preset.keybinding === "::") {
+                return;
             }
-            const preset = presets[slot - 1];
-            if (!preset) {
-                continue;
-            }
-            Main.keybindingManager.addHotKey(HOTKEY_PRESET_PREFIX + slot, binding,
+            Main.keybindingManager.addHotKey(HOTKEY_PRESET_PREFIX + index, preset.keybinding,
                 () => this.resizeWindow(this._targetWindow(), preset.width, preset.height,
                     preset.center));
-        }
-        this._presetHotkeyCount = PRESET_HOTKEY_SLOTS;
+        });
+        this._presetHotkeyCount = presets.length;
     }
 
     _unbindPresetHotkeys() {
-        for (let slot = 1; slot <= this._presetHotkeyCount; slot++) {
-            Main.keybindingManager.removeHotKey(HOTKEY_PRESET_PREFIX + slot);
+        for (let index = 0; index < this._presetHotkeyCount; index++) {
+            Main.keybindingManager.removeHotKey(HOTKEY_PRESET_PREFIX + index);
         }
         this._presetHotkeyCount = 0;
     }

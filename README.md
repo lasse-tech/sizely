@@ -5,14 +5,14 @@ on the current monitor — from the title bar context menu or by keyboard shortc
 
 ## Features
 
-* **Your own presets** — any number of them, each with a name, width, height and
-  an optional "center" flag. They appear in the window menu, either grouped in a
-  "Size" submenu or listed directly.
+* **Your own presets** — any number of them, each with a name, width, height, an
+  optional "center" flag and an optional keyboard shortcut. They appear in the
+  window menu, either grouped in a "Size" submenu or listed directly.
 * **Standard resolutions** — a built-in list of common display resolutions,
   grouped by aspect ratio. See below.
 * **Center on monitor** — places the window in the middle of the monitor it
   currently sits on, without changing its size.
-* **Keyboard shortcuts** — for centering and for the first five preset rows.
+* **Keyboard shortcuts** — for centering and for every preset row.
 * Everything is configurable through the Cinnamon extension settings.
 
 ## Why not wmctrl or xdotool
@@ -37,8 +37,8 @@ grouped by aspect ratio:
 |---|---|
 | 16:9 | qHD, HD 720p, HD+, FHD 1080p, QHD 1440p, 3K, QHD+, 4K UHD, 5K, 8K UHD |
 | 16:10 | WXGA, WXGA+, WSXGA+, WUXGA, WQXGA, WQXGA+, WQUXGA |
-| 4:3 / 5:4 | SVGA, XGA, XGA+, SXGA, SXGA+, UXGA, QXGA, QUXGA |
-| 21:9 | UWFHD, UWQHD, UW4K, UW5K |
+| 4:3 / 5:4 | SVGA, XGA, XGA+, SXGA, SXGA+, UXGA, QXGA, QUXGA (off by default) |
+| 21:9 | UWFHD, UWQHD, UW4K, UW5K (off by default) |
 | 32:9 | DQHD, DUHD (off by default) |
 | Digital Cinema | DCI 2K, DCI 4K (off by default) |
 
@@ -141,13 +141,35 @@ Entries are inserted before the trailing separator so that "Close" stays last.
 Keyboard shortcuts go through `Main.keybindingManager` and are rebound whenever
 the settings change.
 
-The preset shortcuts are separate settings (`preset-1-keybinding` …
-`preset-5-keybinding`) rather than a column inside the table. The reason is a bug
-in Cinnamon: `TreeListWidgets.list_edit_factory()` builds the widget for a
-`keybinding` column without a settings backend, so its constructor trips over
-`self.backend` in `SettingsWidgets.py:482` and the list's edit dialog crashes
-with `AttributeError: 'Widget' object has no attribute 'backend'`. This affects
-every xlet, including Cinnamon's own `settings-example@cinnamon.org`.
+### Known issue: editing presets in the settings dialog
+
+The preset shortcuts live in a `keybinding` column of the presets table. That
+column type is broken in Cinnamon: `TreeListWidgets.list_edit_factory()` builds
+the widget without a settings backend, so `Keybinding.__init__` trips over
+`self.backend` (`SettingsWidgets.py:482`). Both the **Add** and the **Edit**
+button of the table therefore fail with
+
+```
+AttributeError: 'Widget' object has no attribute 'backend'
+```
+
+This affects every xlet using a `keybinding` column, including Cinnamon's own
+`settings-example@cinnamon.org` — it is not specific to Sizely.
+
+Until it is fixed upstream, edit the presets directly in
+
+```
+~/.config/cinnamon/spices/sizely@gossardla/sizely@gossardla.json
+```
+
+and tell Cinnamon to reload them:
+
+```bash
+gdbus call --session --dest org.Cinnamon --object-path /org/Cinnamon \
+  --method org.Cinnamon.updateSetting sizely@gossardla sizely@gossardla presets ""
+```
+
+Everything else in the settings dialog works normally.
 
 ## Requirements
 
