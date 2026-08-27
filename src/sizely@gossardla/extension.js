@@ -70,11 +70,23 @@ class Sizely {
         this.settings.finalize();
     }
 
-    _scale(value, useLogical) {
-        if (!useLogical) {
-            return value;
+    _monitorScale(window) {
+        const display = global.display;
+        if (typeof display.get_monitor_scale === "function") {
+            const scale = display.get_monitor_scale(window.get_monitor());
+            if (scale > 0) {
+                return scale;
+            }
         }
-        return Math.round(value * global.ui_scale);
+        return global.ui_scale || 1;
+    }
+
+    _scale(value, scale) {
+        return Math.max(1, Math.round(value * scale));
+    }
+
+    _useLogical() {
+        return this.sizeUnit !== "physical";
     }
 
     _targetWindow() {
@@ -97,7 +109,7 @@ class Sizely {
         return true;
     }
 
-    resizeWindow(window, width, height, center, useLogical) {
+    resizeWindow(window, width, height, center) {
         if (!this._prepare(window)) {
             return;
         }
@@ -108,9 +120,10 @@ class Sizely {
 
         const area = window.get_work_area_current_monitor();
         const frame = window.get_frame_rect();
+        const scale = this._useLogical() ? this._monitorScale(window) : 1;
 
-        const w = Math.max(1, Math.min(this._scale(width, useLogical), area.width));
-        const h = Math.max(1, Math.min(this._scale(height, useLogical), area.height));
+        const w = Math.min(this._scale(width, scale), area.width);
+        const h = Math.min(this._scale(height, scale), area.height);
 
         let x;
         let y;
@@ -200,14 +213,12 @@ class Sizely {
                 menu._items.push(sub);
                 for (const preset of presets) {
                     this._addAction(menu, sub.menu, undefined, this._presetLabel(preset),
-                        () => this.resizeWindow(window, preset.width, preset.height, preset.center,
-                            this.sizeUnit === "logical"));
+                        () => this.resizeWindow(window, preset.width, preset.height, preset.center));
                 }
             } else {
                 for (const preset of presets) {
                     this._addAction(menu, menu, at++, this._presetLabel(preset),
-                        () => this.resizeWindow(window, preset.width, preset.height, preset.center,
-                            this.sizeUnit === "logical"));
+                        () => this.resizeWindow(window, preset.width, preset.height, preset.center));
                 }
             }
         }
@@ -232,12 +243,13 @@ class Sizely {
         }
 
         const area = window.get_work_area_current_monitor();
+        const scale = this._useLogical() ? this._monitorScale(window) : 1;
         const root = new WindowMenu.MnemonicSubMenuMenuItem(_("Stan_dard Resolutions"));
         let added = 0;
 
         for (const family of families) {
-            const entries = family.entries.filter(([w, h]) =>
-                !this.standardFitOnly || (w <= area.width && h <= area.height));
+            const entries = family.entries.filter(([w, h]) => !this.standardFitOnly
+                || (this._scale(w, scale) <= area.width && this._scale(h, scale) <= area.height));
             if (entries.length === 0) {
                 continue;
             }
@@ -248,7 +260,7 @@ class Sizely {
             for (const [w, h, name] of entries) {
                 const item = new PopupMenu.PopupMenuItem(w + " × " + h + "   " + name);
                 item.connect("activate", () =>
-                    this.resizeWindow(window, w, h, this.standardCenter, false));
+                    this.resizeWindow(window, w, h, this.standardCenter));
                 group.menu.addMenuItem(item);
             }
             added++;
@@ -296,7 +308,7 @@ class Sizely {
             }
             Main.keybindingManager.addHotKey(HOTKEY_PRESET_PREFIX + slot, binding,
                 () => this.resizeWindow(this._targetWindow(), preset.width, preset.height,
-                    preset.center, this.sizeUnit === "logical"));
+                    preset.center));
         }
         this._presetHotkeyCount = PRESET_HOTKEY_SLOTS;
     }

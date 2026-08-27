@@ -46,32 +46,36 @@ The values are taken from
 [Display resolution standards](https://en.wikipedia.org/wiki/Display_resolution_standards)
 and live in `src/sizely@gossardla/resolutions.js`.
 
-Two notes:
-
-* These resolutions are **always exact physical pixels**. Picking "1920 × 1080"
-  should give you a window with exactly that pixel count, so the *unit* setting
-  below applies to your own presets only.
-* By default only resolutions that **fit the current monitor** are listed; larger
-  ones would just be clamped to the work area anyway. On a 5120 × 2880 screen
-  with a panel, "5K" is correctly absent because the work area is only 2800 px
-  tall. This can be turned off.
-
-Each group can be shown or hidden individually.
+By default only resolutions that **fit the current monitor** are listed; larger
+ones would just be clamped to the work area anyway. The check uses the scaled
+size, so the list adapts to the monitor the window is on. Each group can be shown
+or hidden individually.
 
 ## HiDPI: logical vs. physical pixels
 
-On X11 Muffin works in **physical** pixels; the UI scaling factor
-(`global.ui_scale`) is not applied. On a HiDPI display with scaling factor 2, a
-preset of "1920 × 1200" would therefore look half the expected size.
+On X11 Muffin moves and resizes windows in **physical** pixels — monitor scaling
+is not applied for you. Cinnamon supports a **per-monitor** scale factor, so
+`global.ui_scale` is only the global maximum and is the wrong number to compute
+with: on a setup with one monitor at 100 % and one at 150 %, it reports 2 for
+both. Sizely therefore asks
+`global.display.get_monitor_scale()` for the monitor the window actually sits on.
 
-Hence the **unit for preset sizes** setting:
+Hence the **unit for all sizes** setting:
 
 | Setting | Meaning |
 |---|---|
-| Logical pixels (default) | The size is multiplied by `ui_scale`. At scaling factor 2, 1280 × 800 becomes 2560 × 1600 real pixels — what you visually expect. |
-| Physical pixels | The value is used as-is. |
+| Logical pixels (default) | The size is multiplied by that monitor's scale factor. "1920 × 1080" then covers the same area a Full HD screen would — on a 150 % monitor that is 2880 × 1620 real pixels. |
+| Physical pixels | The value is used as-is, ignoring monitor scaling. |
 
-Presets larger than the monitor's work area are clamped to it.
+This applies to your own presets and to the standard resolutions alike. Sizes
+larger than the monitor's work area are clamped to it.
+
+Measured on a two-monitor setup (100 % and 150 %):
+
+| Monitor | Scale | Work area | "1920 × 1080" gives | 16:9 listed up to |
+|---|---|---|---|---|
+| DP-1 | 1.0 | 3840 × 2160 | 1920 × 1080 | 3840 × 2160 |
+| DP-2 | 1.5 | 5120 × 2800 | 2880 × 1620 | 3200 × 1800 |
 
 ## Installation
 

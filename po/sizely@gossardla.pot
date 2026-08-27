@@ -25,10 +25,10 @@ msgid "4:3 / 5:4"
 msgstr ""
 
 #: settings-schema.json:standard-hint
-msgid "A built-in list of common display resolutions, grouped by aspect ratio. These are always exact physical pixels, regardless of the unit setting above."
+msgid "A built-in list of common display resolutions, grouped by aspect ratio. They follow the unit setting above."
 msgstr ""
 
-#: extension.js:262
+#: extension.js:229
 msgid "C_enter on Monitor"
 msgstr ""
 
@@ -72,16 +72,12 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: settings-schema.json:standard-fit-only
-msgid "Larger resolutions would just be clamped to the monitor's work area, so they are hidden by default."
+#: settings-schema.json:size-unit
+msgid "Logical pixels (scaled per monitor)"
 msgstr ""
 
 #: settings-schema.json:size-unit
-msgid "Logical pixels (HiDPI-scaled)"
-msgstr ""
-
-#: settings-schema.json:size-unit
-msgid "Logical: sizes are multiplied by the UI scaling factor, which is what you visually expect on HiDPI displays. Physical: raw screen pixels. Standard resolutions are always physical pixels."
+msgid "Logical: sizes are multiplied by the scale factor of the monitor the window sits on, so \"1920 x 1080\" covers the same area a Full HD screen would. Physical: raw screen pixels, ignoring monitor scaling."
 msgstr ""
 
 #: settings-schema.json:presets
@@ -98,6 +94,10 @@ msgstr ""
 
 #: settings-schema.json:presets
 msgid "Presets"
+msgstr ""
+
+#: settings-schema.json:standard-fit-only
+msgid "Resolutions larger than the monitor's work area would just be clamped to it, so they are hidden by default. The check uses the scaled size."
 msgstr ""
 
 #: settings-schema.json:center-keybinding
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr ""
 
-#: extension.js:285
+#: extension.js:247
 msgid "Stan_dard Resolutions"
 msgstr ""
 
@@ -145,7 +145,7 @@ msgid "Standard resolutions"
 msgstr ""
 
 #: settings-schema.json:size-unit
-msgid "Unit for your own preset sizes"
+msgid "Unit for all sizes"
 msgstr ""
 
 #: settings-schema.json:use-submenu
@@ -164,7 +164,7 @@ msgstr ""
 msgid "Your presets"
 msgstr ""
 
-#: extension.js:242
+#: extension.js:211
 msgid "_Size"
 msgstr ""
 
