@@ -32,6 +32,10 @@ msgstr ""
 msgid "Aspect ratios"
 msgstr ""
 
+#: settings-schema.json:standard-family-phones
+msgid "CSS viewport sizes, not panel resolutions — that is what a browser window needs for responsive testing."
+msgstr ""
+
 #: extension.js:217
 msgid "C_enter on Monitor"
 msgstr ""
@@ -103,6 +107,10 @@ msgstr ""
 
 #: settings-schema.json:standard-fit-only
 msgid "Only list resolutions that fit on the current monitor"
+msgstr ""
+
+#: settings-schema.json:standard-family-phones
+msgid "Phones"
 msgstr ""
 
 #: settings-schema.json:size-unit

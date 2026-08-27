@@ -45,6 +45,12 @@ msgstr ""
 msgid "Aspect ratios"
 msgstr "Seitenverhältnisse"
 
+#: settings-schema.json:standard-family-phones
+msgid ""
+"CSS viewport sizes, not panel resolutions — that is what a browser window "
+"needs for responsive testing."
+msgstr "CSS-Viewport-Größen, nicht Panel-Auflösungen – das ist, was ein Browserfenster zum Testen von Responsive-Layouts braucht."
+
 #: extension.js:217
 msgid "C_enter on Monitor"
 msgstr "Auf Monitor _zentrieren"
@@ -122,11 +128,17 @@ msgstr "Bezeichnung"
 msgid ""
 "Off: every custom size sits directly in the window menu — one click instead "
 "of two. Handy when you only have a few."
-msgstr "Aus: Jede eigene Größe liegt direkt im Fenstermenü – ein Klick statt zwei. Praktisch, wenn es nur wenige sind."
+msgstr ""
+"Aus: Jede eigene Größe liegt direkt im Fenstermenü – ein Klick statt zwei. "
+"Praktisch, wenn es nur wenige sind."
 
 #: settings-schema.json:standard-fit-only
 msgid "Only list resolutions that fit on the current monitor"
 msgstr "Nur Auflösungen anzeigen, die auf den aktuellen Monitor passen"
+
+#: settings-schema.json:standard-family-phones
+msgid "Phones"
+msgstr "Smartphones"
 
 #: settings-schema.json:size-unit
 msgid "Physical pixels"
@@ -162,7 +174,10 @@ msgid ""
 "Sizes you define yourself. Every row becomes an entry in the window menu. "
 "\"Center\" places the window in the middle of the current monitor after "
 "resizing."
-msgstr "Selbst definierte Größen. Jede Zeile wird zu einem Eintrag im Fenstermenü. „Zentrieren“ setzt das Fenster nach dem Anpassen mittig auf den aktuellen Monitor."
+msgstr ""
+"Selbst definierte Größen. Jede Zeile wird zu einem Eintrag im Fenstermenü. "
+"„Zentrieren“ setzt das Fenster nach dem Anpassen mittig auf den aktuellen "
+"Monitor."
 
 #: extension.js:235
 msgid "Stan_dard Resolutions"

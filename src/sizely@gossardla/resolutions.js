@@ -61,6 +61,14 @@ var FAMILIES = [
         ]
     },
     {
+        id: "phones",
+        label: "Phones",
+        entries: [
+            [402, 874, "iPhone 17"],
+            [412, 924, "Pixel 10"]
+        ]
+    },
+    {
         id: "dci",
         label: "Digital Cinema",
         entries: [

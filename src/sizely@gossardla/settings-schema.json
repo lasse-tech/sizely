@@ -80,6 +80,7 @@
                 "standard-family-4-3",
                 "standard-family-21-9",
                 "standard-family-32-9",
+                "standard-family-phones",
                 "standard-family-dci"
             ]
         }
@@ -226,6 +227,13 @@
         "type": "checkbox",
         "default": false,
         "description": "32:9",
+        "dependency": "show-standard-resolutions"
+    },
+    "standard-family-phones": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Phones",
+        "tooltip": "CSS viewport sizes, not panel resolutions — that is what a browser window needs for responsive testing.",
         "dependency": "show-standard-resolutions"
     },
     "standard-family-dci": {
