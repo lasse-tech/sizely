@@ -172,6 +172,33 @@ python3 tools/make_icon.py --symbolic out.png
 Palette: mint green `#85C440`, ink `#14260A`, deep green `#1C3410`, symbolic
 `#2B2B2B`.
 
+## Landing page
+
+The page under [example.invalid/sizely](https://example.invalid/sizely/) lives in
+`web/` and is published with
+
+```bash
+make deploy         # rsync web/ to the server
+make deploy-check   # verify the live page and its CSP header
+```
+
+It is served from the hosting site document root and therefore inherits that
+site's Content-Security-Policy:
+
+```
+script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'
+```
+
+Two consequences the page is built around, and which `make deploy` refuses to
+break: the JavaScript lives in `assets/app.js` rather than an inline `<script>`,
+and the fonts are self-hosted in `assets/fonts/` instead of loaded from Google.
+An inline `<style>` block is fine — `style-src` allows `'unsafe-inline'`.
+
+Language (System / English / Deutsch) and theme (System / Light / Dark) are
+hover menus that also open on tap, since touch devices never fire hover. Both
+remember the choice in `localStorage`; "System" follows `navigator.language` and
+`prefers-color-scheme` respectively.
+
 ## Requirements
 
 Cinnamon 6.0 – 6.6 on X11. Tested on Linux Mint 22.3 "Zena" with Cinnamon 6.6.9.
