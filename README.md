@@ -91,8 +91,14 @@ Configure it with
 xlet-settings extension sizely@gossardla
 ```
 
-or through *Settings → Extensions → Sizely → gear icon*. The default shortcut for
+or through *Settings → Extensions → Sizely → gear icon*. The dialog has three
+tabs — *General*, *Presets* and *Standard Resolutions*. The default shortcut for
 centering is <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
+
+The tabs are not just cosmetic: `xlet-settings.py` only switches the settings
+window to a scrollable view when the content is taller than the monitor's work
+area minus 100 px. On a tall screen a long single page therefore grows past the
+window without ever gaining a scrollbar. Keeping each page short avoids that.
 
 Run `make help` for all targets.
 

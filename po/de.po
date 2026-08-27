@@ -41,6 +41,10 @@ msgstr ""
 "Eine eingebaute Liste gängiger Bildschirmauflösungen, nach Seitenverhältnis "
 "gruppiert. Sie folgen der Einheiten-Einstellung weiter oben."
 
+#: settings-schema.json:ratioSection
+msgid "Aspect ratios"
+msgstr "Seitenverhältnisse"
+
 #: extension.js:217
 msgid "C_enter on Monitor"
 msgstr "Auf Monitor _zentrieren"
@@ -52,10 +56,6 @@ msgstr "Zentrieren"
 #: settings-schema.json:standard-center
 msgid "Center the window after picking a standard resolution"
 msgstr "Fenster nach Wahl einer Standardauflösung zentrieren"
-
-#: settings-schema.json:head-center
-msgid "Centering"
-msgstr "Zentrieren"
 
 #: settings-schema.json:center-keybinding
 msgid ""
@@ -69,19 +69,23 @@ msgstr ""
 msgid "Digital Cinema"
 msgstr "Digital Cinema"
 
+#: settings-schema.json:standardSection
+msgid "Display"
+msgstr "Anzeige"
+
 #: settings-schema.json:presets-hint
 msgid ""
 "Every row becomes a menu entry. \"Center\" places the window in the middle "
 "of the current monitor after resizing."
 msgstr ""
-"Jede Zeile wird zu einem Menüeintrag. „Zentrieren“ setzt das Fenster nach dem "
-"Anpassen mittig auf den aktuellen Monitor."
+"Jede Zeile wird zu einem Menüeintrag. „Zentrieren“ setzt das Fenster nach "
+"dem Anpassen mittig auf den aktuellen Monitor."
 
 #: settings-schema.json:show-in-window-menu
 msgid "Extend the window menu (right-click on the title bar)"
 msgstr "Fenstermenü erweitern (Rechtsklick auf die Titelleiste)"
 
-#: settings-schema.json:head-general
+#: settings-schema.json:generalPage
 msgid "General"
 msgstr "Allgemein"
 
@@ -92,6 +96,10 @@ msgstr "Presets in einem Untermenü „Größe“ bündeln"
 #: settings-schema.json:presets
 msgid "Height"
 msgstr "Höhe"
+
+#: settings-schema.json:shortcutSection
+msgid "Keyboard shortcut"
+msgstr "Tastenkombination"
 
 #: settings-schema.json:size-unit
 msgid "Logical pixels (HiDPI-scaled)"
@@ -118,7 +126,7 @@ msgstr "Nur Auflösungen anzeigen, die auf den aktuellen Monitor passen"
 msgid "Physical pixels"
 msgstr "Physische Pixel"
 
-#: settings-schema.json:presets
+#: settings-schema.json:presetsPage settings-schema.json:presets
 msgid "Presets"
 msgstr "Presets"
 
@@ -143,12 +151,16 @@ msgstr "Eintrag „Auf Monitor zentrieren“ im Fenstermenü anzeigen"
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr "Untermenü „Standardauflösungen“ anzeigen"
 
+#: settings-schema.json:sizeSection
+msgid "Sizes"
+msgstr "Größen"
+
 #: extension.js:235
 msgid "Stan_dard Resolutions"
 msgstr "Standardauf_lösungen"
 
-#: settings-schema.json:head-standard
-msgid "Standard resolutions"
+#: settings-schema.json:standardPage
+msgid "Standard Resolutions"
 msgstr "Standardauflösungen"
 
 #: settings-schema.json:size-unit
@@ -167,13 +179,23 @@ msgstr "Aus: Nur die Tastenkombinationen sind aktiv."
 msgid "Width"
 msgstr "Breite"
 
-#: settings-schema.json:head-presets
+#: settings-schema.json:menuSection
+msgid "Window menu"
+msgstr "Fenstermenü"
+
+#: settings-schema.json:presetsSection
 msgid "Your presets"
 msgstr "Eigene Presets"
 
 #: extension.js:199
 msgid "_Size"
 msgstr "Größe _festlegen"
+
+#~ msgid "Centering"
+#~ msgstr "Zentrieren"
+
+#~ msgid "Standard resolutions"
+#~ msgstr "Standardauflösungen"
 
 #~ msgid "Shortcut"
 #~ msgstr "Tastenkombination"

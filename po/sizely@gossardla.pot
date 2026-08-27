@@ -28,6 +28,10 @@ msgstr ""
 msgid "A built-in list of common display resolutions, grouped by aspect ratio. They follow the unit setting above."
 msgstr ""
 
+#: settings-schema.json:ratioSection
+msgid "Aspect ratios"
+msgstr ""
+
 #: extension.js:217
 msgid "C_enter on Monitor"
 msgstr ""
@@ -40,16 +44,16 @@ msgstr ""
 msgid "Center the window after picking a standard resolution"
 msgstr ""
 
-#: settings-schema.json:head-center
-msgid "Centering"
-msgstr ""
-
 #: settings-schema.json:center-keybinding
 msgid "Centers the focused window on the monitor it currently sits on, without changing its size."
 msgstr ""
 
 #: settings-schema.json:standard-family-dci
 msgid "Digital Cinema"
+msgstr ""
+
+#: settings-schema.json:standardSection
+msgid "Display"
 msgstr ""
 
 #: settings-schema.json:presets-hint
@@ -60,7 +64,7 @@ msgstr ""
 msgid "Extend the window menu (right-click on the title bar)"
 msgstr ""
 
-#: settings-schema.json:head-general
+#: settings-schema.json:generalPage
 msgid "General"
 msgstr ""
 
@@ -70,6 +74,10 @@ msgstr ""
 
 #: settings-schema.json:presets
 msgid "Height"
+msgstr ""
+
+#: settings-schema.json:shortcutSection
+msgid "Keyboard shortcut"
 msgstr ""
 
 #: settings-schema.json:size-unit
@@ -92,6 +100,7 @@ msgstr ""
 msgid "Physical pixels"
 msgstr ""
 
+#: settings-schema.json:presetsPage
 #: settings-schema.json:presets
 msgid "Presets"
 msgstr ""
@@ -112,12 +121,16 @@ msgstr ""
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr ""
 
+#: settings-schema.json:sizeSection
+msgid "Sizes"
+msgstr ""
+
 #: extension.js:235
 msgid "Stan_dard Resolutions"
 msgstr ""
 
-#: settings-schema.json:head-standard
-msgid "Standard resolutions"
+#: settings-schema.json:standardPage
+msgid "Standard Resolutions"
 msgstr ""
 
 #: settings-schema.json:size-unit
@@ -136,7 +149,11 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: settings-schema.json:head-presets
+#: settings-schema.json:menuSection
+msgid "Window menu"
+msgstr ""
+
+#: settings-schema.json:presetsSection
 msgid "Your presets"
 msgstr ""
 

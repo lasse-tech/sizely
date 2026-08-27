@@ -32,26 +32,37 @@ def scan_js(path, entries):
                     "%s:%d" % (os.path.basename(path), lineno))
 
 
+def scan_item(entries, name, key, item):
+    if not isinstance(item, dict):
+        return
+
+    for field in SCHEMA_FIELDS:
+        add(entries, item.get(field), "%s:%s" % (name, key))
+
+    if item.get("type") in ("page", "section"):
+        add(entries, item.get("title"), "%s:%s" % (name, key))
+
+    options = item.get("options")
+    if isinstance(options, dict):
+        for label in options:
+            add(entries, label, "%s:%s" % (name, key))
+
+    for column in item.get("columns", []) or []:
+        if isinstance(column, dict):
+            add(entries, column.get("title"), "%s:%s" % (name, key))
+
+    if item.get("type") == "layout":
+        for sub_key, sub_item in item.items():
+            scan_item(entries, name, sub_key, sub_item)
+
+
 def scan_schema(path, entries):
     with open(path, encoding="utf-8") as handle:
         schema = json.load(handle)
 
     name = os.path.basename(path)
     for key, item in schema.items():
-        if not isinstance(item, dict):
-            continue
-
-        for field in SCHEMA_FIELDS:
-            add(entries, item.get(field), "%s:%s" % (name, key))
-
-        options = item.get("options")
-        if isinstance(options, dict):
-            for label in options:
-                add(entries, label, "%s:%s" % (name, key))
-
-        for column in item.get("columns", []) or []:
-            if isinstance(column, dict):
-                add(entries, column.get("title"), "%s:%s" % (name, key))
+        scan_item(entries, name, key, item)
 
 
 def main():
