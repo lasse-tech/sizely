@@ -146,3 +146,7 @@ Liste stürzt dann mit `AttributeError: 'Widget' object has no attribute
 
 Cinnamon 6.0 – 6.6 unter X11. Getestet auf Linux Mint 22.3 „Zena“ mit
 Cinnamon 6.6.9.
+
+## Lizenz
+
+MIT – siehe [LICENSE](LICENSE).
