@@ -199,6 +199,21 @@ hover menus that also open on tap, since touch devices never fire hover. Both
 remember the choice in `localStorage`; "System" follows `navigator.language` and
 `prefers-color-scheme` respectively.
 
+Below 760 px the whole navigation collapses into a hamburger panel and the two
+dropdowns turn into plain lists — at that width the bar would otherwise wrap onto
+a second line.
+
+The settings screenshots in `web/assets/shots/` are regenerated with
+
+```bash
+xlet-settings extension sizely@gossardla -t 0   # 1 and 2 for the other tabs
+```
+
+and shown as a gallery with a lightbox: thumbnails open a full-size view that
+steps with the on-screen arrows, the left/right cursor keys, or a horizontal
+swipe. A swipe only counts when it is clearly horizontal, so vertical scrolling
+still works.
+
 ## Requirements
 
 Cinnamon 6.0 – 6.6 on X11. Tested on Linux Mint 22.3 "Zena" with Cinnamon 6.6.9.
