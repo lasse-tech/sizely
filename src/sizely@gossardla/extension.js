@@ -8,6 +8,7 @@ const PopupMenu = imports.ui.popupMenu;
 const WindowMenu = imports.ui.windowMenu;
 
 const Sizing = require('./sizing');
+const ResizeLabel = require('./resizeLabel');
 const FAMILIES = Sizing.FAMILIES;
 
 const UUID = "sizely@gossardla";
@@ -42,6 +43,9 @@ class Sizely {
         this.settings.bind("use-submenu", "useSubmenu");
         this.settings.bind("show-center-item", "showCenterItem");
         this.settings.bind("show-in-window-menu", "showInWindowMenu");
+        this.settings.bind("show-resize-label", "showResizeLabel", () => this._syncResizeLabel());
+
+        this._resizeLabel = new ResizeLabel.ResizeLabel(() => this._useLogical());
 
         this.settings.bind("show-standard-resolutions", "showStandardResolutions");
         this.settings.bind("standard-center", "standardCenter");
@@ -54,9 +58,11 @@ class Sizely {
     enable() {
         this._patchWindowMenu();
         this._bindCenterHotkey();
+        this._syncResizeLabel();
     }
 
     disable() {
+        this._resizeLabel.disable();
         this._unpatchWindowMenu();
         Main.keybindingManager.removeHotKey(HOTKEY_CENTER);
         this.settings.finalize();
@@ -64,6 +70,14 @@ class Sizely {
 
     _useLogical() {
         return this.sizeUnit !== "physical";
+    }
+
+    _syncResizeLabel() {
+        if (this.showResizeLabel) {
+            this._resizeLabel.enable();
+        } else {
+            this._resizeLabel.disable();
+        }
     }
 
     _patchWindowMenu() {

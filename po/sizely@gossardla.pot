@@ -36,7 +36,7 @@ msgstr ""
 msgid "CSS viewport sizes, not panel resolutions — that is what a browser window needs for responsive testing."
 msgstr ""
 
-#: extension.js:142
+#: extension.js:156
 msgid "C_enter on Monitor"
 msgstr ""
 
@@ -117,6 +117,10 @@ msgstr ""
 msgid "Physical pixels"
 msgstr ""
 
+#: settings-schema.json:resizeSection
+msgid "Resizing"
+msgstr ""
+
 #: settings-schema.json:standard-fit-only
 msgid "Resolutions larger than the monitor's work area would just be clamped to it, so they are hidden by default. The check uses the scaled size."
 msgstr ""
@@ -133,6 +137,10 @@ msgstr ""
 msgid "Show the \"Standard resolutions\" submenu"
 msgstr ""
 
+#: settings-schema.json:show-resize-label
+msgid "Show the window size while resizing"
+msgstr ""
+
 #: settings-schema.json:sizeSection
 msgid "Sizes"
 msgstr ""
@@ -141,7 +149,7 @@ msgstr ""
 msgid "Sizes you define yourself. Every row becomes an entry in the window menu. \"Center\" places the window in the middle of the current monitor after resizing."
 msgstr ""
 
-#: extension.js:159
+#: extension.js:173
 msgid "Stan_dard Resolutions"
 msgstr ""
 
@@ -157,6 +165,10 @@ msgstr ""
 msgid "When off, only the keyboard shortcuts are active."
 msgstr ""
 
+#: settings-schema.json:show-resize-label
+msgid "While you drag a window edge, the size appears at the top of the window until you release the mouse button. Also works with Alt+F8. Follows the unit setting above."
+msgstr ""
+
 #: settings-schema.json:presets
 msgid "Width"
 msgstr ""
@@ -165,7 +177,7 @@ msgstr ""
 msgid "Window menu"
 msgstr ""
 
-#: extension.js:122
+#: extension.js:136
 msgid "_Size"
 msgstr ""
 

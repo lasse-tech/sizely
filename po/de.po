@@ -144,6 +144,10 @@ msgstr "Smartphones"
 msgid "Physical pixels"
 msgstr "Physische Pixel"
 
+#: settings-schema.json:resizeSection
+msgid "Resizing"
+msgstr "Größe ändern"
+
 #: settings-schema.json:standard-fit-only
 msgid ""
 "Resolutions larger than the monitor's work area would just be clamped to it, "
@@ -160,6 +164,10 @@ msgstr "Tastenkombination für „Auf Monitor zentrieren“"
 #: settings-schema.json:show-center-item
 msgid "Show \"Center on Monitor\" in the window menu"
 msgstr "Eintrag „Auf Monitor zentrieren“ im Fenstermenü anzeigen"
+
+#: settings-schema.json:show-resize-label
+msgid "Show the window size while resizing"
+msgstr "Fenstergröße beim Ändern der Größe anzeigen"
 
 #: settings-schema.json:show-standard-resolutions
 msgid "Show the \"Standard resolutions\" submenu"
@@ -190,6 +198,16 @@ msgstr "Standardauflösungen"
 #: settings-schema.json:size-unit
 msgid "Unit for all sizes"
 msgstr "Einheit für alle Größen"
+
+#: settings-schema.json:show-resize-label
+msgid ""
+"While you drag a window edge, the size appears at the top of the window until "
+"you release the mouse button. Also works with Alt+F8. Follows the unit "
+"setting above."
+msgstr ""
+"Solange du einen Fensterrand ziehst, steht die Größe oben im Fenster – bis du "
+"die Maustaste loslässt. Klappt auch mit Alt+F8. Richtet sich nach der "
+"Einheiten-Einstellung weiter oben."
 
 #: settings-schema.json:show-in-window-menu
 msgid "When off, only the keyboard shortcuts are active."

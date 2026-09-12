@@ -21,6 +21,9 @@ monitor the window actually sits on, with the panel offset taken into account.
   that fit the current monitor are listed.
 * **Center on monitor** — puts the window in the middle without changing its
   size. Default shortcut <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
+* **Size while resizing** — drag a window edge and its size in pixels is shown
+  at the top of the window until you let go, so you can pull it to an exact
+  size.
 * **HiDPI aware** — sizes can be given in logical or physical pixels. Logical
   multiplies by the UI scaling factor, so "1920 × 1080" covers the area a Full HD
   screen would.
@@ -42,7 +45,7 @@ the seam between two displays.
 xlet-settings extension sizely@gossardla
 ```
 
-Three tabs: **General** (window menu, unit, shortcut), **Custom Sizes** (your own
+Three tabs: **General** (window menu, unit, size while resizing, shortcut), **Custom Sizes** (your own
 entries) and **Standard Resolutions** (which aspect ratios to offer).
 
 ## Requirements

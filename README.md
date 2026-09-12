@@ -16,6 +16,9 @@ on the current monitor — from the title bar context menu or by keyboard shortc
 * **Center on monitor** — places the window in the middle of the monitor it
   currently sits on, without changing its size.
 * **Keyboard shortcut** — for centering.
+* **Size while resizing** — while you drag a window edge, the window's size is
+  shown at the top of the window until you release the mouse button, so you can
+  pull a window to an exact size. Follows the unit setting.
 * Everything is configurable through the Cinnamon extension settings.
 
 ## Why not wmctrl or xdotool
@@ -156,6 +159,20 @@ Entries are inserted before the trailing separator so that "Close" stays last.
 The centering shortcut goes through `Main.keybindingManager` and is rebound
 whenever the setting changes.
 
+The size readout listens to `grab-op-begin` and `grab-op-end` on
+`global.display`. A grab op is a resize when its direction bits (`0xf000`) or
+the keyboard "unknown direction" bit (`0x200`) are set — that covers dragging an
+edge as well as <kbd>Alt</kbd>+<kbd>F8</kbd>. While the grab lasts, the label
+follows the window's `size-changed` and `position-changed` signals; it is
+centered on the server-side title bar, or pinned just below the top edge for
+windows that draw their own. The shown size is the frame rectangle — the same
+one custom sizes set — in the configured unit.
+
+Muffin's own `show-resize-popup` is no help here: it only fires for windows with
+size increments such as terminals and reports rows and columns, not pixels.
+Cinnamon shows that popup in the middle of the window, so the two do not
+overlap.
+
 ## Windows without a title bar
 
 Applications with client-side decorations — Thunderbird, most GTK apps — draw
@@ -174,6 +191,7 @@ The geometry lives apart from the menu code:
 ```
 extension.js     window menu, settings, shortcut
 sizing.js        resize, center, scaling, resolution filtering
+resizeLabel.js   size readout while resizing
 resolutions.js   the resolution table
 ```
 
