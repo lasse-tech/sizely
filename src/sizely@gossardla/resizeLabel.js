@@ -36,8 +36,11 @@ class ResizeLabel {
         if (this._displaySignals.length > 0) {
             return;
         }
+        // Muffin 6.6 emits (display, display, window, op) - one argument more
+        // than Cinnamon's own handlers assume. Take window and op from the
+        // end so either form works.
         this._displaySignals = [
-            global.display.connect("grab-op-begin", (display, window, op) => this._begin(window, op)),
+            global.display.connect("grab-op-begin", (...args) => this._begin(args[args.length - 2], args[args.length - 1])),
             global.display.connect("grab-op-end", () => this._end())
         ];
     }

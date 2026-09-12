@@ -160,7 +160,10 @@ The centering shortcut goes through `Main.keybindingManager` and is rebound
 whenever the setting changes.
 
 The size readout listens to `grab-op-begin` and `grab-op-end` on
-`global.display`. A grab op is a resize when its direction bits (`0xf000`) or
+`global.display`. Muffin 6.6 passes `(display, display, window, op)` to these
+handlers — one argument more than `virtualKeyboard.js` in Cinnamon assumes — so
+Sizely reads window and op from the end of the argument list. A grab op is a
+resize when its direction bits (`0xf000`) or
 the keyboard "unknown direction" bit (`0x200`) are set — that covers dragging an
 edge as well as <kbd>Alt</kbd>+<kbd>F8</kbd>. While the grab lasts, the label
 follows the window's `size-changed` and `position-changed` signals; it is
