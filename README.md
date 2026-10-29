@@ -225,6 +225,10 @@ Palette: mint green `#85C440`, ink `#14260A`, deep green `#1C3410`, symbolic
 
 Cinnamon 6.0 – 6.6 on X11. Tested on Linux Mint 22.3 "Zena" with Cinnamon 6.6.9.
 
+## Support
+
+[Buy me a coffee](https://buymeacoffee.com/gossardla)
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
