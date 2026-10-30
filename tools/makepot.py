@@ -29,7 +29,7 @@ def scan_js(path, entries):
         for lineno, line in enumerate(handle, 1):
             for match in JS_STRING.finditer(line):
                 add(entries, unescape_js(match.group("text")),
-                    "%s:%d" % (os.path.basename(path), lineno))
+                    f"{os.path.basename(path)}:{lineno}")
 
 
 def scan_item(entries, name, key, item):
@@ -37,19 +37,19 @@ def scan_item(entries, name, key, item):
         return
 
     for field in SCHEMA_FIELDS:
-        add(entries, item.get(field), "%s:%s" % (name, key))
+        add(entries, item.get(field), f"{name}:{key}")
 
     if item.get("type") in ("page", "section"):
-        add(entries, item.get("title"), "%s:%s" % (name, key))
+        add(entries, item.get("title"), f"{name}:{key}")
 
     options = item.get("options")
     if isinstance(options, dict):
         for label in options:
-            add(entries, label, "%s:%s" % (name, key))
+            add(entries, label, f"{name}:{key}")
 
     for column in item.get("columns", []) or []:
         if isinstance(column, dict):
-            add(entries, column.get("title"), "%s:%s" % (name, key))
+            add(entries, column.get("title"), f"{name}:{key}")
 
     if item.get("type") == "layout":
         for sub_key, sub_item in item.items():
@@ -89,12 +89,11 @@ def main():
             '\n'
         )
         for text in sorted(entries):
-            for reference in entries[text]:
-                out.write("#: %s\n" % reference)
-            out.write('msgid "%s"\n' % escape_po(text))
+            out.writelines(f"#: {reference}\n" for reference in entries[text])
+            out.write(f'msgid "{escape_po(text)}"\n')
             out.write('msgstr ""\n\n')
 
-    print("%s: %d strings" % (out_path, len(entries)))
+    print(f"{out_path}: {len(entries)} strings")
 
 
 if __name__ == "__main__":

@@ -19,7 +19,8 @@ on the current monitor — from the title bar context menu or by keyboard shortc
 * **Size while resizing** — while you drag a window edge, the window's size is
   shown at the top of the window until you release the mouse button, so you can
   pull a window to an exact size. Follows the unit setting.
-* Everything is configurable through the Cinnamon extension settings.
+* Everything is configurable through the Cinnamon extension settings. With the
+  window menu entries switched off, only the keyboard shortcut remains.
 
 ## Why not wmctrl or xdotool
 
@@ -46,6 +47,7 @@ grouped by aspect ratio:
 | 4:3 / 5:4 | SVGA, XGA, XGA+, SXGA, SXGA+, UXGA, QXGA, QUXGA (off by default) |
 | 21:9 | UWFHD, UWQHD, UW4K, UW5K (off by default) |
 | 32:9 | DQHD, DUHD (off by default) |
+| Phones | CSS viewport sizes, not panel resolutions — what a browser window needs for responsive testing |
 | Digital Cinema | DCI 2K, DCI 4K (off by default) |
 
 The values are taken from
@@ -55,7 +57,9 @@ and live in `src/sizely@gossardla/resolutions.js`.
 By default only resolutions that **fit the current monitor** are listed; larger
 ones would just be clamped to the work area anyway. The check uses the scaled
 size, so the list adapts to the monitor the window is on. Each group can be shown
-or hidden individually.
+or hidden individually. "Center after resizing" centers the window after a
+standard resolution is picked; for custom sizes, each row has its own "Center"
+flag.
 
 ## HiDPI: logical vs. physical pixels
 
@@ -85,6 +89,7 @@ up to 1920 × 1080.
 
 ```bash
 make install     # install, compile translations and enable
+make debug       # link the source tree instead of copying it
 make reload      # reload in the running Cinnamon after code changes
 make uninstall   # disable and remove everything again
 ```
@@ -95,8 +100,9 @@ Configure it with
 xlet-settings extension sizely@gossardla
 ```
 
-or through *Settings → Extensions → Sizely → gear icon*. The dialog has three
-tabs — *General*, *Custom Sizes* and *Standard Resolutions*. The default shortcut for
+or through *Settings → Extensions → Sizely → gear icon*. The dialog has four
+tabs — *General*, *Custom Sizes*, *Standard Resolutions* and *About*. Every row in
+*Custom Sizes* becomes an entry in the window menu. The default shortcut for
 centering is <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>.
 
 The tabs are not just cosmetic: `xlet-settings.py` only switches the settings
@@ -198,7 +204,7 @@ resizeLabel.js   size readout while resizing
 resolutions.js   the resolution table
 ```
 
-## Icon and assets
+## Icon
 
 The extension icon is `src/sizely@gossardla/icon.png`, rendered by
 `tools/make_icon.py`:
@@ -209,14 +215,9 @@ python3 tools/make_icon.py --set assets/png  # 16/22/24/32/48/64/128/256
 python3 tools/make_icon.py --symbolic out.png
 ```
 
-`assets/` holds the source artwork:
-
-| File | Purpose |
-|---|---|
-| `assets/sizely-icon.svg` | colour icon, 256 grid |
-| `assets/sizely-symbolic.svg` | 16 px monochrome, `currentColor` |
-| `assets/sizely-symbolic-24.svg` | 24 px monochrome, `currentColor` |
-| `assets/png/sizely-icon-*.png` | rendered size set |
+The design sources (SVG artwork, the full PNG size set, the screenshot tools
+behind `make screenshot` and `make spice-shot`) are not part of the public
+repository.
 
 Palette: mint green `#85C440`, ink `#14260A`, deep green `#1C3410`, symbolic
 `#2B2B2B`.

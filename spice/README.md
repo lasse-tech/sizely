@@ -45,8 +45,9 @@ the seam between two displays.
 xlet-settings extension sizely@gossardla
 ```
 
-Three tabs: **General** (window menu, unit, size while resizing, shortcut), **Custom Sizes** (your own
-entries) and **Standard Resolutions** (which aspect ratios to offer).
+Four tabs: **General** (window menu, unit, size while resizing, shortcut),
+**Custom Sizes** (your own entries), **Standard Resolutions** (which aspect
+ratios to offer) and **About**.
 
 ## Requirements
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+
 from PIL import Image, ImageDraw
 
 SIZE = 256
@@ -31,7 +32,7 @@ def _draw(size, badge=True, color=INK, bg=GREEN):
     for pts in ([(56, 104), (56, 56), (104, 56)],
                 [(200, 152), (200, 200), (152, 200)]):
         d.line([(x * u, y * u) for x, y in pts], fill=color,
-               width=int(round(w)), joint="curve")
+               width=round(w), joint="curve")
         for x, y in pts:
             r = w / 2.0
             d.ellipse([x * u - r, y * u - r, x * u + r, y * u + r], fill=color)
@@ -41,7 +42,7 @@ def _draw(size, badge=True, color=INK, bg=GREEN):
 
 def save(path, size=SIZE, **kw):
     _draw(size, **kw).save(path)
-    print("%s: %d x %d" % (path, size, size))
+    print(f"{path}: {size} x {size}")
 
 
 if __name__ == "__main__":
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     elif args and args[0] == "--set":
         outdir = (args[1] if len(args) > 1 else ".").rstrip("/")
         for n in SET_SIZES:
-            save("%s/sizely-icon-%d.png" % (outdir, n), n)
+            save(f"{outdir}/sizely-icon-{n}.png", n)
     elif args and args[0] == "--symbolic":
         save(args[1] if len(args) > 1 else "sizely-symbolic.png",
              badge=False, color=SYMBOLIC)

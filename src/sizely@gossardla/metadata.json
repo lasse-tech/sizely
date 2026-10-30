@@ -4,7 +4,7 @@
     "description": "Resize windows to configurable sizes and center them on the current monitor, from the title bar menu or by keyboard shortcut.",
     "version": "1.0.0",
     "author": "Lars Gossard",
-    "contact": "sizely@incudex.de",
+    "contact": "lars@lasse-tech.de",
     "cinnamon-version": [
         "6.0",
         "6.2",
